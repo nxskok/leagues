@@ -1,0 +1,480 @@
+---
+title: "Leagues"
+output: html_notebook
+---
+
+
+## packages & functions
+
+```{r, message=F}
+library(tidyverse)
+library(lubridate)
+source("20180726_functions.R")
+```
+
+## download latest from predictthefootball
+
+```{bash}
+./stats.sh | tee stats.txt
+```
+
+```{bash}
+ls -l stats.txt
+```
+
+## how many new predictions?
+
+```{r howmanynew}
+stats_old=readRDS("oldstats.rds")
+stats_new=read_csv("stats.txt")
+saveRDS(stats_new, "oldstats.rds")
+stats_new %>% left_join(stats_old, by="game") %>% 
+  select(game, league=league.x, new=howmany.x, old=howmany.y) %>% 
+  mutate(diff=(new-old)/old*100) %>% 
+  group_by(league) %>% 
+  summarize(maxdiff=max(diff)) %>% 
+  arrange(desc(maxdiff))
+stats <- stats_new
+```
+
+
+
+
+## retrieve ratings
+
+Estimate new ratings in `ratings` project (first), and check that they are up to date
+
+
+```{r message=FALSE}
+england_post=read_ratings("england", 2020)
+england_champ_post=read_ratings("england_champ", 2020)
+france_post=read_ratings("france", 2020)
+germany_post=read_ratings("germany", 2020)
+greece_post=read_ratings("greece", 2020)
+italy_post=read_ratings("italy", 2020)
+scotland_post=read_ratings("scotland", 2020)
+spain_post=read_ratings("spain", 2020)
+sweden_post=read_ratings("sweden",2020)
+europe_post=read_ratings("europe", 2020)
+facup_post=read_ratings("facup", 2020)
+```
+
+
+date of last run (more detail in ratings project)
+
+```{r}
+last_posterior_date() %>% 
+  separate(fname, into=c("league", "ext"), sep="_post") %>% 
+  select(-ext) %>% 
+  filter(!str_detect(league,"_pre")) %>% 
+  arrange(desc(mtime))
+```
+
+
+## leagues --------------------------
+
+### England
+
+```{r england}
+newgames("en",stats)
+show_teams(england_post$teams)
+is_new=0
+txt="
+10,17,10,Man City v Burnley,2616,3-0:2-0:3-1:2-1:4-0:1-0:4-1
+13,18,10,Leicester v Brighton,2642,2-0:2-1:1-0:1-1:3-1:3-0
+9,14,10,Tottenham v West Ham,2750,2-0:2-1:3-1:1-0:1-1:3-0
+3,20,10,Man Utd v Sheff Utd,2669,2-0:2-1:1-0:1-1:3-0:3-1
+5,6,0,Newcastle v Aston Villa,2659,2-1:1-1:2-0:1-0:1-2:0-1:0-0:3-1
+15,8,2,Norwich v Everton,2656,1-2:0-2:0-1:1-1:1-3:1-0:2-1:0-0
+12,19,10,Wolves v Bournemouth,2637,2-0:2-1:3-0:1-0:3-1:1-1
+4,11,10,Liverpool v Crystal Palace,2639,2-0:2-1:3-0:3-1:1-0:1-1:4-0
+17,16,X,Burnley v Watford,2569,1-1:1-0:2-1:1-2:0-1:0-0:2-0:2-2:0-2
+7,1,X,Southampton v Arsenal,2592,1-1:2-1:1-2:2-2:1-0:2-0:0-2:0-1:1-3
+2,10,2,Chelsea v Man City,2589,1-2:1-1:2-2:1-3:2-1:0-2:2-3
+"
+d=diff.games(txt,'en',is_new,stats)
+d %>% left_join(all_pred(england_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("en",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+
+### England championship:
+
+```{r england-champ}
+newgames("en2",stats)
+show_teams(england_champ_post$teams)
+is_new=0
+txt="
+22,7,X,Brentford v West Brom,134,1-1:1-2:2-1:0-2:1-0:2-2
+15,6,X,Preston v Cardiff,125,1-1:2-1:1-2:2-0:0-2:1-0
+24,9,10,Swansea v Luton,124,2-0:2-1:1-0:1-1:3-0:3-1
+17,13,X,Barnsley v Millwall,125,1-1:1-2:2-1:1-0:0-1:0-0:2-0:2-2
+18,12,10,Derby v Reading,124,2-1:2-0:1-1:3-1:1-0:1-2:0-0
+3,23,10,Birmingham v Hull,124,2-0:2-1:1-0:1-1:1-2:0-1:0-0
+2,19,X,Charlton v QPR,124,1-1:2-1:1-2:1-0:0-1:0-0:2-0
+8,1,0,Leeds v Fulham,123,2-1:1-1:2-0:1-0:2-2:3-0:3-2:0-0:0-1:3-1
+14,4,0,Stoke v Middlesbrough,124,1-1:2-0:2-1:1-0:1-2:0-1:0-2
+10,5,X,Wigan v Blackburn,124,1-1:1-2:1-0:2-1:0-1:2-2:0-2
+20,21,X,Bristol City v Sheff Wed,123,2-1:1-1:1-2:2-0:1-0:0-1
+16,11,10,Nottm Forest v Huddersfield,123,2-0:2-1:1-0:3-0:3-1:1-1:1-2
+"
+d=diff.games(txt,'en2',is_new,stats)
+d %>% left_join(all_pred(england_champ_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("en2",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+### France
+
+```{r france}
+newgames("fr",stats)
+show_teams(france_post$teams)
+is_new=0
+txt="
+16,20,0,Amiens v Nîmes,15,1-1:2-0:2-1:0-1:1-0
+19,17,10,Dijon v Angers,15,1-0:2-1:0-1:1-1:2-0
+9,8,0,Lille v Nice,15,1-0:2-0:1-1:2-1:0-1:2-2
+2,6,X,Monaco v Bordeaux,14,1-0:2-0:1-1:2-1:0-1:0-2:3-1
+15,18,X,Montpellier v Reims,14,1-1:1-0:2-0:0-1:1-2:2-2
+3,12,10,PSG v Saint-Étienne,14,2-0:3-1:2-1:4-1:0-1:3-0
+7,13,0,Rennes v Metz,14,1-1:2-0:2-1:1-0:0-0:0-1
+10,14,1,Strasbourg v Brest,14,2-0:1-0:2-1:0-1:1-1:2-3:3-4
+11,4,X,Toulouse v Nantes,14,1-0:1-1:2-0:2-1:2-2:2-3:0-1
+1,5,10,Lyon v Marseille,14,2-0:2-1:1-0:0-1:1-1:3-2
+"
+d=diff.games(txt,'fr',is_new,stats)
+d %>% left_join(all_pred(france_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("fr",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+
+### Germany
+
+```{r germany}
+newgames("de",stats)
+show_teams(germany_post$teams)
+is_new=0
+txt="
+2,8,10,Bayern Munich v Freiburg,136,3-0:3-1:2-0:2-1:4-1:4-0
+17,15,X,Düsseldorf v Augsburg,135,2-1:1-1:1-2:1-0:0-1:2-0:2-2
+11,4,2,Hertha Berlin v B Leverkusen,135,1-2:1-1:0-2:2-1:1-3:2-2:0-1
+16,12,10,Hoffenheim v Union Berlin,135,2-1:2-0:1-1:1-0:1-2:3-1:2-2
+3,14,X,Köln v Frankfurt,135,1-2:1-1:2-2:0-2:1-0:2-1:1-3:0-1:2-0
+13,1,X,Mainz v Werder Bremen,135,2-1:1-2:1-1:1-0:0-1:2-2:0-2:2-0:1-3
+10,9,21,Paderborn v B Mgladbach,135,0-2:1-2:1-3:0-3:0-1:0-4:1-4
+18,5,X,RB Leipzig v B Dortmund,135,1-1:2-2:2-1:1-2:1-3:2-0:1-0
+6,7,X,Schalke v Wolfsburg,135,1-1:2-1:1-2:2-2:0-1:0-0:1-0:0-2:1-3
+"
+
+d=diff.games(txt,'de',is_new,stats)
+d %>% left_join(all_pred(germany_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("de",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+
+### Greece
+
+```{r greece}
+newgames("gr",stats)
+show_teams(greece_post$teams)
+is_new=0
+txt="
+3,7,10,PAOK Salonika v OFI,106,2-0:3-1:2-1:1-0:3-0:4-0:4-1
+4,8,10,AEK Athens v Aris,106,2-0:2-1:1-0:1-1:3-0:3-1
+12,11,0,Asteras Tripolis v Atromitos Athens,107,1-1:0-0:2-1:1-2:1-0:0-1:2-0
+6,14,0,Xanthi v Panetolikos,106,1-0:1-1:0-0:0-1:2-0:2-1
+2,1,0,Olympiakos v Panathinaikos,109,2-1:2-0:1-1:3-0:1-0:3-1:0-0
+13,9,0,Larissa v Volos NFC,110,1-0:1-1:2-0:2-1:3-1:0-0:1-2:0-1:2-2
+10,5,0,Lamia v Panionios,110,1-1:1-0:2-0:0-0:0-1:2-1:1-2
+6,11,X,Xanthi v Atromitos Athens,110,1-1:1-0:0-0:0-1:2-1:1-2:2-0:0-2
+"
+d=diff.games(txt,'gr',is_new,stats)
+d %>% left_join(all_pred(greece_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("gr",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+### Italy
+
+```{r italy}
+newgames("it",stats)
+show_teams(italy_post$teams)
+is_new=0
+txt="
+15,4,X,Torino v Parma,162,1-1:1-0:2-1:1-2:2-0:0-1:0-0:0-2:1-3
+19,12,X,Hellas Verona v Cagliari,163,1-1:2-1:1-0:0-1:1-2:2-0:3-1:0-0
+11,20,10,Atalanta v Sassuolo,158,2-0:2-1:3-0:3-1:1-0
+5,8,10,Inter Milan v Sampdoria,160,2-0:2-1:3-1:3-0:1-0
+13,9,10,Fiorentina v Brescia,154,2-0:1-0:2-1:3-0:1-1:3-1
+14,1,21,Lecce v AC Milan,153,1-2:0-2:0-1:1-1:2-1:1-3
+10,3,21,Bologna v Juventus,151,0-2:1-2:1-3:1-1:0-1:0-0
+19,16,21,Hellas Verona v Napoli,135,1-2:0-2:0-1:1-3:1-1:2-1:2-2:0-0:1-0
+18,12,X,SPAL v Cagliari,159,1-1:1-2:0-1:2-1:0-2:1-0:0-0
+17,4,X,Genoa v Parma,157,1-0:2-1:1-1:1-2:2-0:2-2:0-2:0-1
+15,7,0,Torino v Udinese,157,2-0:1-1:2-1:1-0:1-2:0-1:3-1
+5,20,10,Inter Milan v Sassuolo,139,2-0:3-0:2-1:3-1:1-1:1-0
+11,6,X,Atalanta v Lazio,148,2-1:1-1:1-2:2-2:3-2:1-0
+2,8,10,Roma v Sampdoria,139,2-0:2-1:3-1:3-0:1-0:1-1
+"
+
+d=diff.games(txt,'it',is_new,stats)
+d %>% left_join(all_pred(italy_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+
+# this needs to be run with d on T
+if (is_new) cp_all_pred(italy_post$post,d) %>% select(game,pred) %>% arrange(game)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("it",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+
+### Scotland
+
+```{r scotland}
+newgames("sc",stats)
+show_teams(scotland_post$teams)
+is_new=0
+txt="
+4,9,X,Motherwell v Aberdeen,123,1-2:1-1:2-1:0-2:1-0:2-2:0-1:2-0
+5,10,10,Hibernian v St Johnstone,119,2-1:2-0:1-1:1-0:1-2:3-1
+7,11,0,Kilmarnock v St Mirren,118,1-1:2-1:1-0:2-0:1-2
+8,12,0,Ross County v Hamilton,117,1-1:2-1:1-0:2-0:0-0:1-2:0-1
+2,1,X,Rangers v Celtic,115,1-2:2-1:1-1:1-3:1-0:0-2:2-0:2-2:0-1
+6,3,X,Livingston v Hearts,115,2-1:1-1:1-0:2-0:1-2:0-1:2-2
+"
+d=diff.games(txt,'sc',is_new,stats)
+d %>% left_join(all_pred(scotland_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("sc",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+
+  ### Spain
+
+```{r spain}
+newgames("es",stats)
+show_teams(spain_post$teams)
+is_new=0
+txt="
+7,6,X,Villarreal v Sevilla,98,1-1:1-2:0-1:2-1:1-0:2-2:0-0
+17,20,X,Leganés v Granada,102,1-1:1-0:1-2:2-1:0-1:2-0
+13,5,21,Levante v Atl Madrid,119,1-2:0-2:0-1:1-3:1-1:2-1
+10,15,X,Real Valladolid v Getafe,119,1-1:1-0:1-2:2-1:0-1:2-0:0-0:0-2
+3,4,10,Barcelona v Ath Bilbao,119,3-1:2-0:2-1:3-0:4-1:1-0
+14,18,0,Alavés v Osasuna,95,1-1:2-1:1-0:2-0:2-2:1-2
+9,12,0,Real Sociedad v Celta Vigo,95,2-0:2-1:1-1:2-2:1-0:1-2
+2,19,10,Real Madrid v Mallorca,95,3-0:3-1:2-0:4-0:1-0:2-1:4-1:5-0
+16,1,21,Eibar v Valencia,82,1-2:0-1:1-1:0-2
+8,11,0,Real Betis v Espanyol,82,1-1:2-1:2-0:1-2:1-0
+"
+d=diff.games(txt,'es',is_new,stats)
+d %>% left_join(all_pred(spain_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("es",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+
+
+### Sweden
+
+```{r sweden}
+newgames("se",stats)
+show_teams(sweden_post$teams)
+is_new=0
+txt="
+12,3,X,Falkenbergs FF v Kalmar FF,71,1-1:2-1:2-2:1-2:0-1:0-2:1-0
+11,5,1,IFK Norrköping v Djurgårdens IF,71,1-2:2-1:2-0:1-0:1-1:2-2:3-1
+1,15,10,Malmö FF v Varbergs BoIS,71,3-0:2-0:2-1:1-0:3-1:4-0:5-0
+2,6,X,Hammarby IF v AIK,72,1-2:1-1:2-0:1-0:2-2:0-0:2-1
+8,16,0,Örebro SK v Östersunds FK,71,2-1:1-1:2-0:2-2:0-0:0-1:3-2:1-3:1-0
+7,10,2,Helsingborgs IF v IF Elfsborg,71,0-2:1-2:1-1:0-3:2-1:0-0:1-0:2-0:2-2
+4,9,0,IFK Göteborg v Mjällby AIF,71,2-0:2-1:3-0:1-1:1-2:2-2:3-1:4-1:1-0
+14,13,1,IK Sirius v BK Häcken,71,0-1:1-0:2-1:1-1:2-0:1-2:2-2
+"
+d=diff.games(txt,'se',is_new,stats)
+d %>% left_join(all_pred(sweden_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("se",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+### champions league
+
+```{r}
+newgames("euc",stats)
+show_teams(europe_post$teams)
+is_new=0
+txt="
+418,98,2,Atl Madrid v Liverpool,329,1-1:1-2:2-1:0-1:0-2:1-3:1-0
+166,138,X,B Dortmund v PSG,329,1-2:2-1:2-2:1-1:1-3:2-3:3-1:0-1:2-0:0-2
+240,414,X,Atalanta v Valencia,340,1-1:2-1:1-2:2-0:1-0:2-2:3-1:0-1:0-2
+103,653,X,Tottenham v RB Leipzig,339,2-1:1-1:1-2:2-0:3-1:1-0:2-2
+96,163,2,Chelsea v Bayern Munich,334,1-2:1-3:1-1:2-2:0-2:2-1:2-3
+245,416,2,Napoli v Barcelona,334,1-2:1-1:0-2:1-3:2-1:2-2
+136,232,21,Lyon v Juventus,340,1-2:0-2:0-1:1-3:1-1:0-3
+415,104,X,Real Madrid v Man City,340,2-1:1-1:2-2:1-2:3-1:2-0
+653,103,0,RB Leipzig v Tottenham,315,2-1:1-1:2-0:1-2:3-1
+414,240,0,Valencia v Atalanta,314,2-1:2-0:1-2:1-1:1-0:2-2:3-1
+98,418,10,Liverpool v Atl Madrid,295,2-0:2-1:3-1:1-0:1-1:3-0
+138,166,10,PSG v B Dortmund,294,2-1:2-0:3-1:2-2:1-1:3-2:1-2:1-0
+232,136,10,Juventus v Lyon,243,2-0:3-0:3-1:2-1:1-0:1-1
+104,415,0,Man City v Real Madrid,243,2-1:2-2:1-1:3-1:1-2:2-0:1-0:3-0:1-3
+416,245,10,Barcelona v Napoli,242,2-1:2-0:3-1:3-0:1-1
+163,96,10,Bayern Munich v Chelsea,242,2-1:3-1:2-0:3-0:4-1:1-1
+"
+d=diff.games(txt,'euc',is_new,stats)
+d %>% left_join(all_pred(europe_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("euc",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+### europa league
+
+
+```{r europa}
+newgames("eue",stats)
+show_teams(europe_post$teams)
+is_new=0
+txt="
+175,445,10,Frankfurt v FC Basel,111,2-1:2-0:3-1:1-1:1-2:1-0:3-0
+513,84,X,Istanbul Basaksehir v FC Copenhagen,111,2-1:1-0:1-1:1-2:2-0:0-1:0-0
+20,97,21,LASK v Man Utd,111,1-2:0-2:1-1:0-3:0-1:1-3:2-1:1-0
+419,231,0,Sevilla v Roma,109,2-1:1-1:1-0:1-2:2-0:2-2:0-0:3-1
+234,428,10,Inter Milan v Getafe,109,2-0:2-1:3-1:3-0:1-1:1-0
+180,106,X,Olympiakos v Wolves,110,1-1:1-2:2-1:2-2:0-1:0-0:1-0
+381,165,1,Rangers v B Leverkusen,110,1-2:1-1:2-1:0-2:1-0:1-3:2-0
+168,467,0,Wolfsburg v Shakhtar Donetsk,110,2-0:2-1:1-1:1-2:2-2:1-0:3-1
+165,381,0,B Leverkusen v Rangers,49,2-1:2-0:2-2:1-0:3-1:1-1:1-2:3-0
+428,234,2,Getafe v Inter Milan,47,1-1:1-2:0-2:1-3:1-0:2-2:0-1:2-1
+467,168,X,Shakhtar Donetsk v Wolfsburg,47,2-1:1-1:1-2:1-0:2-0:0-1:3-1
+106,180,10,Wolves v Olympiakos,47,2-1:2-0:1-1:3-0:3-1:3-2:1-0
+445,175,X,FC Basel v Frankfurt,47,1-1:2-1:1-2:2-2:1-0:0-1:2-0:3-1
+84,513,0,FC Copenhagen v Istanbul Basaksehir,47,2-1:2-0:1-1:1-0:1-2:0-0:3-1
+97,20,10,Man Utd v LASK,47,3-1:3-0:2-0:2-1:1-0:4-0:5-0:1-1
+231,419,X,Roma v Sevilla,47,2-1:1-1:2-0:1-2:2-2:0-1:1-0:2-3:3-1 
+"
+d=diff.games(txt,'eue',is_new,stats)
+d %>% left_join(all_pred(europe_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("eue",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+### fa cup
+
+```{r facup}
+newgames("enf",stats)
+show_teams(facup_post$teams)
+is_new=0
+txt="
+14,1,21,Portsmouth v Arsenal,171,0-2:1-2:1-3:1-1:0-3:2-1:2-2
+2,4,1,Chelsea v Liverpool,184,1-2:2-1:1-1:2-0:0-1:0-2:2-2
+29,28,21,Reading v Sheff Utd,182,1-2:0-2:0-1:1-1:2-1:1-0:1-3
+19,5,X,West Brom v Newcastle,183,2-1:1-1:1-2:2-0:1-0:2-2:0-1
+23,10,10,Leicester v Birmingham,186,2-0:2-1:3-0:3-1:1-1:1-0
+60,17,21,Sheff Wed v Man City,184,0-3:1-3:0-2:1-2:0-4:1-4
+16,18,10,Tottenham v Norwich,185,2-0:2-1:3-0:3-1:1-0
+40,3,21,Derby v Man Utd,183,1-2:0-2:1-3:1-1:2-1:2-2:0-1
+"
+d=diff.games(txt,'enf',is_new,stats)
+d %>% left_join(all_pred(facup_post$post,d), by="game") %>% 
+  select(rowno=row.x, game, pred, rpdiff.y, resnow=resnow.x, res=res.x) %>% 
+  filter(is_new | str_detect(rpdiff.y, "[0-9]-[0-9]") | resnow!=res)
+```
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("enf",stats))
+make_new_txt(txt_new, team_tab)
+```
+
+
+### junk
+
+league
+<chr>
+maxdiff
+<dbl>
+gr	23.529412			
+fr	22.500000			
+eue	20.388350			
+de	18.367347			
+sc	16.822430			
+en2	16.190476			
+es	13.725490			
+it	12.244898			
+euc	11.147541			
+enf	2.061856	
+
+
+```{r}
+team_tab=old_txt_to_numbers(txt)
+txt_new=capture.output(newgames("se",stats))
+make_new_txt(txt_new, team_tab)
+```
