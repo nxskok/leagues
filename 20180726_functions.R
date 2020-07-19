@@ -3,7 +3,7 @@
 # get date of last posteriors
 
 last_posterior_date=function() {
-  dir="~/Documents/ratings"
+  dir="~/Documents/r-projects/ratings"
   pat="*._post.rds"
   v=list.files(path=dir,pattern=pat,full.names = T)
   v_short=list.files(path=dir,pattern=pat)
@@ -13,12 +13,12 @@ last_posterior_date=function() {
 }
 
 read_prior=function(league_name,year) {
-  fname=str_c("~/Documents/ratings/",league_name,year,"_prior.csv")
+  fname=str_c("~/Documents/r-projects/ratings/",league_name,year,"_prior.csv")
   read_csv(fname) %>% select(id, sw_id, team=name)
 }
 
 read_posterior=function(league_name) {
-  fname=str_c("~/Documents/ratings/",league_name,"_post.rds")
+  fname=str_c("~/Documents/r-projects/ratings/",league_name,"_post.rds")
   readRDS(fname)
 }
 

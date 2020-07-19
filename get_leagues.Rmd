@@ -1,0 +1,53 @@
+ 
+ get the info for a league (in R not Perl)
+
+packages
+ 
+```{r}
+library(tidyverse)
+library(rvest)
+library(conflicted)
+conflict_prefer("pluck", "rvest")
+```
+ 
+ get a form
+ 
+```{r}
+my_url <- "https://championship.predictthefootball.com/profile/index"
+s <- html_session(my_url)
+```
+ 
+login 
+ 
+```{r}
+my_email <- "ken@swiss-soccer.net"
+my_pass <- "300dart"
+s %>% html_form() %>% .[[1]] -> f 
+f %>%  
+  set_values("LoginForm[email]" = my_email, "LoginForm[password]" = my_pass, "LoginForm[rememberMe]" = 1) -> f
+submit_form(s, f)
+```
+ 
+
+
+or look at form
+ 
+```{r}
+s %>% jump_to(my_url) %>% html_form()
+```
+
+there are my predictions
+
+```{r}
+s %>% jump_to(my_url) %>% html_nodes("form") %>% 
+  html_nodes("table") %>% .[[2]] %>% html_nodes("tr") -> rows
+rows %>% html_attr("class")
+rows %>% html_nodes("input")
+```
+
+the teams that go with them?
+
+```{r}
+rows %>% html_nodes(xpath = '//*[@id="prediction-table"]/tbody/tr[2]/td[5]') %>% html_text()
+```
+
