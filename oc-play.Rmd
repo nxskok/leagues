@@ -1,0 +1,99 @@
+```{r}
+library(tidyverse)
+library(rvest)
+library(httr2)
+source("oddschecker_functions.R")
+```
+
+can't scrape the page directly  
+
+what about copy and paste?
+
+```{r}
+odds0 <- read_csv("odds.csv", col_names = F)
+odds0 %>% mutate(X1 = as.character(X1)) -> odds0
+odds0
+```
+
+
+```{r}
+odds0 %>% mutate(r = row_number()) %>% 
+  pivot_longer(-r) %>% 
+  filter(!is.na(value)) %>% 
+  filter(value != "TIP") %>% 
+  group_by(r) %>% 
+  mutate(count = row_number()) %>% 
+  mutate(count = str_c("X", count)) %>% 
+  select(-name) %>% 
+  pivot_wider(names_from = count, values_from = value) -> odds
+odds
+```
+
+turn odds into prob
+
+```{r}
+odds_to_prob <- function(x) {
+  str_split(x, "/")
+}
+```
+
+```{r}
+pp <- function(x) {
+  x <- as.numeric(x)
+  x[2]/(x[1]+x[2])
+}
+```
+
+
+
+
+```{r}
+odds %>% 
+  select(-r, -X1, -X3, -X7) %>% 
+  rename("game" = X2) %>%
+  mutate(across(starts_with("X"), ~odds_to_prob(.))) %>% 
+  rowwise() %>% 
+  mutate(across(starts_with("X"), ~pp(.))) %>% 
+  mutate(sum = X4 + X5 + X6) %>% 
+  mutate(across(starts_with("X"), ~ . / sum)) %>% 
+  select(-sum) %>% 
+  mutate(game = str_replace(game, "\n", " v ")) -> probs
+probs
+```
+
+```{r}
+probs %>% 
+  rowwise() %>% 
+  mutate(lambda = list(opt_lambda(c(X4, X5, X6)))) %>% 
+  unnest_wider(lambda) %>% View()
+```
+
+then use these
+
+
+
+
+jottings (deletable?)
+
+can I get at the CL page?
+
+```{r}
+url_to_content <- function(url) {
+  # now with httr2
+  print(url)
+  request(url) %>% req_retry(max_tries = 10, is_transient = ~ resp_status(.x) %in% c(429, 500, 503)) %>% 
+    req_throttle(rate = 1/1)   -> req
+    # req_user_agent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36") 
+  req %>% req_perform() -> resp
+  resp %>% resp_body_html()
+}
+```
+
+
+```{r}
+my_url <- "https://www.oddschecker.com/football/champions-league"
+html <- url_to_content(my_url)
+html
+```
+
+does it check the user agent?

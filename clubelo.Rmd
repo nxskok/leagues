@@ -1,0 +1,53 @@
+
+## clubelo
+
+```{r}
+library(tidyverse)
+fixtures0 <- read_csv("http://api.clubelo.com/Fixtures")
+fixtures0 %>% 
+  select(-starts_with("GD")) %>% 
+  pivot_longer(starts_with("R:"), names_to = "result", values_to = "prob") %>% 
+  extract(result, into = c("s1", "s2"), regex = "R:(.)-(.)", convert = TRUE) %>% 
+  nest_by(Date, Country, Home, Away) -> fixtures
+fixtures
+```
+data has columns s1, s2, prob
+
+write function to get best expected point prediction per ptf
+
+
+add bonuses to this
+
+```{r}
+ptf <- function(p1, p2, s1, s2) {
+  case_when(
+    p1 == s1 & p2 == s2 ~ 3,
+    p1 > p2 & s1 > s2   ~ 1,
+    p1 == p2 & s1 == s2 ~ 1,
+    p1 < p2 & s1 < s2   ~ 1,
+    TRUE                ~ 0
+  )  
+}
+```
+
+
+```{r}
+best_pred <- function(p) {
+  prd <- crossing(p1=0:6, p2=0:6)
+  prd %>% crossing(p) %>% 
+    mutate(pts = ptf(p1, p2, s1, s2)) %>% 
+    group_by(p1, p2) %>% 
+    summarise(ept = sum(pts*prob)) %>% 
+    ungroup() %>% 
+    filter(ept==max(ept)) -> d
+  str_c(d$p1, " - ", d$p2)
+}
+```
+
+
+
+```{r}
+fixtures %>% 
+  summarize(pred = best_pred(data)) %>% View("clubelo")
+```
+

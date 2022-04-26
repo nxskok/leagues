@@ -1,0 +1,127 @@
+
+get odds from oddschecker spreadsheet and process
+
+[url](https://www.oddschecker.com/football/english/fa-cup) or similar
+
+## packages
+
+```{r}
+library(tidyverse)
+library(rvest)
+options(dplyr.summarise.inform = FALSE)
+source("oddschecker_functions.R")
+```
+
+https://www.oddschecker.com/football/euro-2020 add in
+
+```{r}
+leagues <- tribble(
+  ~sheet_url, ~short_name, ~omit,
+#  "https://www.oddschecker.com/football/english/fa-cup", "enf", TRUE,
+  "https://www.oddschecker.com/football/champions-league", "euc", FALSE,
+  "https://www.oddschecker.com/football/europa-league", "eue", FALSE,
+  # "https://www.oddschecker.com/football/euro-2020", "ec", TRUE
+)
+leagues %>% 
+  rowwise() %>% 
+  mutate(preds = list(make_preds(sheet_url, short_name, omit_draw = omit))) %>% 
+  filter(is.tibble(preds)) %>% 
+  select(short_name, preds) %>% 
+  unnest(preds) %>% View("oddschecker")
+```
+
+
+```{r}
+stop("Done?")
+```
+
+jottings
+
+```{r}
+leagues
+my_url <- leagues$sheet_url[1]
+my_url
+make_prob_df(my_url)
+read_league(my_url)
+make_prob_df(leagues$sheet_url) 
+all <- with(leagues, make_all(sheet_url, short_name))
+all
+dist <- with(all, prob_dist(lambda_1[1], lambda_2[1]))
+dist
+with(all, ept(0, 0, dist, res[12], scores[12]))
+with(all, best_expected(lambda_1[12], lambda_2[12], res[12], scores[12], FALSE))
+all %>% rowwise() %>% 
+  mutate(best = list(best_expected(lambda_1, lambda_2, res, scores, FALSE))) %>% 
+  unnest_wider(best)
+```
+
+
+read one
+
+```{r}
+list_of <- list(sheet_url = "https://www.oddschecker.com/football/english/fa-cup", short_name = "enf", omit = TRUE)
+# list_of <- list(sheet_url = "https://www.oddschecker.com/football/champions-league", short_name = "euc", omit = FALSE)
+# list_of <- list(sheet_url = "https://www.oddschecker.com/football/europa-league", short_name = "eue", omit = FALSE)
+
+# sheet_url <- "https://www.oddschecker.com/football/english/fa-cup"
+# short_name <- "enf"
+# omit <- TRUE
+
+# sheet_url <- "https://www.oddschecker.com/football/champions-league"
+# short_name <- "euc"
+# omit <- FALSE
+
+# sheet_url <- "https://www.oddschecker.com/football/europa-league"
+# short_name <- "eue"
+# omit <- FALSE
+```
+
+
+
+
+edit names - make the ones in sheet match the ones in stats (leave here for now)
+
+```{r}
+edit_names <- function(the_sheet) {
+  the_sheet %>% 
+    mutate(game = str_replace_all(game, "Newport County", "Newport")) %>% 
+    mutate(game = str_replace_all(game, "Nottingham Forest", "Nottm Forest")) %>%
+    mutate(game = str_replace_all(game, "Sheffield Utd", "Sheff Utd")) %>%
+    mutate(game = str_replace_all(game, "Sheffield Wednesday", "Sheff Wed")) %>%
+    mutate(game = str_replace_all(game, "Borussia Dortmund", "B Dortmund")) %>%
+    mutate(game = str_replace_all(game, "Atletico Madrid", "Atl Madrid")) %>%
+    mutate(game = str_replace_all(game, "Borussia Monchengladbach", "B Mgladbach")) %>%
+    mutate(game = str_replace_all(game, "Antwerp", "Royal Antwerp")) %>%
+    mutate(game = str_replace_all(game, "Braga", "Sporting Braga")) %>%
+    mutate(game = str_replace_all(game, "Dynamo Kiev", "Dynamo Kyiv")) %>%
+    mutate(game = str_replace_all(game, "Club Brugge", "Club Bruges")) %>%
+    mutate(game = str_replace_all(game, "Maccabi Tel Aviv", "Maccabi Tel-Aviv")) %>%
+    mutate(game = str_replace_all(game, "PSV", "PSV Eindhoven")) %>%
+    mutate(game = str_replace_all(game, "Salzburg", "RB Salzburg")) %>%
+    mutate(game = str_replace_all(game, "Wolfsberger AC", "RZ Pellets WAC")) %>%
+    mutate(game = str_replace_all(game, "Bayer Leverkusen", "B Leverkusen")) %>%
+    # mutate(game = str_replace_all(game, "Southampton", "TBC")) %>% # this can go later
+    mutate(game = str_replace_all(game, "ZZZZ", "zzzz")) %>%
+    mutate(game = str_replace_all(game, "ZZZZ", "zzzz")) %>%
+    mutate(game = str_replace_all(game, "ZZZZ", "zzzz")) %>%
+    mutate(game = str_replace_all(game, "ZZZZ", "zzzz")) %>%
+    mutate(game = str_replace_all(game, "ZZZZ", "zzzz")) %>%
+    mutate(game = str_replace_all(game, "ZZZZ", "zzzz")) %>%
+    mutate(game = str_replace_all(game, "ZZZZ", "zzzz")) %>%
+    mutate(game = str_replace_all(game, "ZZZZ", "zzzz")) %>%
+    select(everything())
+}
+```
+
+```{r}
+ppp <- with(list_of, make_preds(sheet_url, short_name, omit_draw = omit))
+# ppp <- make_preds(sheet_url, short_name) # omit_drow = TRUE if needed
+ppp %>% View("oddschecker")
+ppp$mismatches
+
+```
+
+=======================================================================
+
+
+

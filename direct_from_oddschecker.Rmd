@@ -1,0 +1,59 @@
+# get oddschecker tables not by copy/pasta
+
+still cannot get datapasta working
+
+```{r}
+library(tidyverse)
+library(rvest)
+```
+
+function to make df out of odds
+
+```{r}
+make_odds_df <- function(url) {
+  html <- read_html(url)
+  html %>% html_nodes("table") %>% 
+    html_table(fill = TRUE) -> d # that's it
+  d %>% as.data.frame() %>% 
+  select(2, 6, 7, 8) %>% 
+  extract(X2, into = c("t1", "t2"), regex = "(.*[a-z])([A-Z].*)") %>% 
+  filter(str_detect(X6, "/")) %>% 
+  rename(c(H=X6, D=X7, A=X8))
+}
+```
+
+```{r}
+make_prob_df = function(url) {
+  read_html(url) -> html
+  html %>% html_nodes("td") %>% 
+    html_attr("data-best-dig") -> odds
+  html %>% html_nodes("td") %>% 
+    html_attr("title") -> title
+  tibble(title, odds) %>% drop_na() %>% 
+    extract(title, into = "team", regex = "Add (.*) to betslip") %>% 
+    mutate(what = rep(c("H", "D", "A"), length.out = nrow(.))) %>% 
+    mutate(row = gl(nrow(.)/3, 3)) %>% 
+    mutate(prob = 1/as.numeric(odds)) %>% 
+    group_by(row) %>% 
+    mutate(prob = prob / sum(prob)) %>%
+    ungroup() %>% 
+    select(-odds) %>% 
+    pivot_wider(names_from = what, values_from = c(team, prob)) %>% 
+    mutate(game = str_c(team_H, " v ", team_A)) %>% 
+    select(game, prob_H, prob_D, prob_A)
+}
+
+```
+
+
+
+make_odds_df almost works, except for something like Wolfsberger AC - Tottenham, where the home team's name ends in uppercase.
+make_prob_df does work.
+
+```{r}
+my_url <- "https://www.oddschecker.com/football/english/fa-cup"
+my_url <- "https://www.oddschecker.com/football/champions-league"
+my_url <- "https://www.oddschecker.com/football/europa-league"
+make_prob_df(my_url)
+```
+

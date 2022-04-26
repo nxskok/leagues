@@ -1,0 +1,133 @@
+game,res,league,howmany,scores
+Dynamo Kyiv v Juventus                       ,21,euc,   259,0-2:1-2:1-1:1-3:0-1:0-3
+Zenit St Petersburg v Club Bruges            ,0 ,euc,   259,2-1:2-0:1-0:1-1:3-1:3-0
+Barcelona v Ferencvárosi TC                  ,10,euc,   272,3-0:4-0:2-0:5-0:3-1:4-1
+Chelsea v Sevilla                            ,0 ,euc,   272,2-1:1-1:2-2:1-2:2-0:1-0:3-2:0-1
+Lazio v B Dortmund                           ,2 ,euc,   273,1-2:1-1:1-3:2-2:0-1:0-2:2-1:2-3
+PSG v Man Utd                                ,10,euc,   273,2-1:3-1:2-0:3-0:2-2:1-1:4-1
+RB Leipzig v Istanbul Basaksehir             ,10,euc,   272,2-0:3-0:3-1:2-1:1-0:4-0
+Rennes v FK Krasnodar                        ,0 ,euc,   272,2-1:1-0:1-1:2-0:2-2:0-1
+RB Salzburg v Lokomotiv Moscow               ,0 ,euc,   257,2-1:2-0:1-1:1-0:1-2:3-1:0-1
+Real Madrid v Shakhtar Donetsk               ,10,euc,   256,2-0:3-1:3-0:2-1:1-0
+Ajax v Liverpool                             ,2 ,euc,   254,1-2:1-1:2-2:1-3:2-1:2-3:0-2:0-1
+Bayern Munich v Atl Madrid                   ,10,euc,   254,2-1:2-0:3-1:1-0:1-1:3-0:2-2:3-2
+FC Midtjylland v Atalanta                    ,21,euc,   254,0-2:1-2:1-3:0-1:0-3:1-1:1-4
+Inter Milan v B Mgladbach                    ,10,euc,   254,2-0:2-1:1-0:3-1:1-1:3-0
+Man City v FC Porto                          ,10,euc,   254,3-1:2-0:3-0:2-1:1-0:4-1
+Olympiakos v Marseille                       ,X ,euc,   254,1-1:1-2:1-0:2-1:0-1:2-2:2-0:0-0
+B Leverkusen v Nice                          ,10,eue,    77,2-1:2-0:3-1:1-1:1-0
+CSKA Sofia v CFR Cluj                        ,X ,eue,    77,1-1:2-0:2-1:1-0:1-2:0-1
+Dundalk v Molde                              ,X ,eue,    77,1-1:1-2:0-1:2-1:1-0:0-2:1-3
+Hapoel Be'er Sheva v Slavia Prague           ,X ,eue,    77,1-2:0-2:1-1:0-1:2-1:2-0:2-2
+HNK Rijeka v Real Sociedad                   ,21,eue,    77,1-2:0-2:1-3:0-1:0-3:1-1
+Lech Poznan v Benfica                        ,21,eue,    77,1-2:1-3:0-2:1-1:0-1:0-3:2-2
+Napoli v AZ Alkmaar                          ,10,eue,    77,2-0:3-1:2-1:3-0:1-0:4-1
+PAOK Salonika v Omonia Nicosia               ,0 ,eue,    76,1-1:2-0:1-0:2-1:1-2
+PSV Eindhoven v Granada                      ,10,eue,    76,2-1:2-0:3-1:1-0:1-1:1-2:2-2:3-0
+Rapid Vienna v Arsenal                       ,21,eue,    76,1-2:1-3:0-2:0-3:0-1:1-1
+Standard Liege v Rangers                     ,X ,eue,    76,1-1:1-2:2-1:1-0:2-2:0-1:2-0
+Young Boys v Roma                            ,2 ,eue,    76,1-2:0-2:1-1:1-3:0-1
+Celtic v AC Milan                            ,21,eue,    76,1-2:0-2:1-3:1-1:0-1:1-0:2-2
+Dinamo Zagreb v Feyenoord                    ,X ,eue,    76,1-1:2-1:2-0:2-2:0-1:1-0:1-2:0-2:1-3
+Hoffenheim v Red Star Belgrade               ,10,eue,    76,2-1:2-0:3-1:1-1:1-0:3-0:1-2
+Leicester v Zorya Luhansk                    ,10,eue,    76,2-0:3-0:2-1:4-0:3-1:1-1
+Ludogorets v Royal Antwerp                   ,0 ,eue,    76,1-1:2-1:2-0:1-0:1-2
+Maccabi Tel-Aviv v FK Qarabag                ,X ,eue,    76,1-1:2-1:2-0:0-2:1-2:3-1:1-0
+RZ Pellets WAC v CSKA Moscow                 ,21,eue,    76,1-2:0-2:0-1:0-3:1-3:1-1
+Slovan Liberec v KAA Gent                    ,X ,eue,    76,1-2:1-1:2-1:0-1:2-0
+Sparta Prague v Lille                        ,X ,eue,    76,1-1:1-2:2-1:0-2:2-0:1-3:2-2:0-1
+Sporting Braga v AEK Athens                  ,0 ,eue,    76,1-1:2-1:2-0:1-2:1-0:3-1:2-2
+Tottenham v LASK                             ,10,eue,    76,3-0:2-0:4-0:3-1:4-1:2-1
+Villarreal v Sivasspor                       ,10,eue,    76,2-0:3-0:2-1:3-1:1-0
+Aston Villa v Leeds                          ,0 ,en ,  1815,2-1:1-1:2-2:1-2:2-0:1-0:3-1:0-1
+West Ham v Man City                          ,21,en ,  1784,1-3:1-2:0-2:0-3:1-1:2-2:1-4
+Fulham v Crystal Palace                      ,2 ,en ,  1779,1-1:1-2:0-1:0-2:1-0:2-1:0-0
+Man Utd v Chelsea                            ,X ,en ,  1783,2-2:2-1:1-2:1-1:1-3:3-2:2-3
+Liverpool v Sheff Utd                        ,10,en ,  1780,3-0:2-0:3-1:4-0:2-1:4-1:1-0
+Southampton v Everton                        ,2 ,en ,  1766,1-2:1-1:1-3:2-2:0-2:2-1:0-1
+Wolves v Newcastle                           ,10,en ,  1763,2-0:2-1:1-0:1-1:3-1:2-2
+Arsenal v Leicester                          ,0 ,en ,  1763,2-1:2-0:1-1:2-2:3-1:1-0:1-2
+Brighton v West Brom                         ,0 ,en ,  1761,1-0:2-0:1-1:2-1:0-0:1-2
+Burnley v Tottenham                          ,21,en ,  1763,1-3:1-2:0-2:0-3:1-4:1-1:0-1:0-4
+Bristol City v Middlesbrough                 ,10,en2,   220,2-1:2-0:1-0:1-1:3-1:1-2:0-1
+Coventry v Swansea                           ,2 ,en2,   219,1-2:1-1:0-1:0-2:1-3:1-0:2-1
+Huddersfield v Derby                         ,X ,en2,   220,1-1:2-0:2-1:1-0:1-2:0-1:0-2
+Millwall v Luton                             ,0 ,en2,   220,2-1:2-0:1-1:1-0:1-2:3-1:0-1
+Norwich v Birmingham                         ,10,en2,   220,2-0:2-1:1-0:1-1:3-1:0-0:1-2
+Nottm Forest v Rotherham                     ,10,en2,   220,2-0:1-0:2-1:1-1:3-1:3-0:0-1:1-2
+Reading v Wycombe                            ,10,en2,   219,2-0:3-0:1-0:2-1:3-1:1-1:4-0:4-1
+Cardiff v Bournemouth                        ,X ,en2,   221,1-1:1-2:2-1:2-2:0-1:2-0:1-0:0-2
+QPR v Preston                                ,X ,en2,   221,2-1:1-1:1-2:2-0:1-0:2-2:0-1
+Sheff Wed v Brentford                        ,X ,en2,   221,1-2:1-1:2-1:0-1:1-0:0-2:2-2
+Stoke v Barnsley                             ,10,en2,   221,2-0:1-0:2-1:1-1:3-0:3-1:0-1
+Watford v Blackburn                          ,0 ,en2,   220,2-1:2-0:1-0:1-1:2-2:1-2:3-0
+Norwich v Man Utd                            ,21,enf,   150,0-2:1-3:1-2:0-3:0-4:0-1:1-1
+Sheff Utd v Arsenal                          ,X ,enf,   154,1-2:2-1:1-1:1-0:0-1
+Leicester v Chelsea                          ,X ,enf,   155,1-2:2-1:1-1:1-3:2-2
+Newcastle v Man City                         ,21,enf,   157,0-2:1-3:0-3:1-2:2-1
+Arsenal v Man City                           ,21,enf,   148,1-2:1-3:0-2:2-1:0-3
+Man Utd v Chelsea                            ,1 ,enf,   157,2-1:1-2:3-1:1-1:2-0:2-2:3-2
+Arsenal v Chelsea                            ,1 ,enf,   104,1-2:2-1:1-3:0-2:1-1:2-2:2-3
+Rennes v Angers                              ,X ,fr ,    44,2-1:1-0:1-1:3-0:0-1:1-2:2-0:3-2:0-0:3-1
+Lorient v Marseille                          ,2 ,fr ,    43,0-1:0-2:1-2:1-3:1-1:0-0:1-0:2-0:2-2
+PSG v Dijon                                  ,10,fr ,    38,4-0:3-0:1-0:4-1:1-1:2-0:2-1:5-0
+Lens v Nantes                                ,X ,fr ,    40,1-0:1-2:0-1:1-1:2-0:2-1:0-0
+Bordeaux v Nîmes                             ,0 ,fr ,    40,2-1:1-0:2-0:0-0:1-1:0-1:1-2:3-1:3-2
+Brest v Strasbourg                           ,X ,fr ,    40,0-1:1-2:2-1:1-1:1-0:0-0:2-0:3-1
+Metz v Saint-Étienne                         ,X ,fr ,    40,1-0:1-2:1-1:2-1:0-1:2-2:0-0:0-2:1-3:2-0
+Montpellier v Reims                          ,1 ,fr ,    40,2-0:2-1:1-0:1-1:0-1:1-2:3-0:3-1:0-0
+Nice v Lille                                 ,X ,fr ,    40,1-1:1-2:1-0:2-1:0-0:0-1:0-2:1-3:3-0
+Lyon v Monaco                                ,1 ,fr ,    41,2-0:3-1:2-1:0-1:1-1:1-2:1-0
+Stuttgart v Köln                             ,10,de ,    56,2-1:1-0:2-0:1-1:1-2:2-2:3-0:3-1
+Bayern Munich v Frankfurt                    ,10,de ,    53,2-1:3-0:2-0:3-1:1-2:1-1:3-2:4-1
+Mainz v B Mgladbach                          ,1 ,de ,    55,1-2:0-2:1-1:1-3:1-0:2-1:0-1:0-3
+RB Leipzig v Hertha Berlin                   ,10,de ,    54,2-0:2-1:3-0:3-1:1-1:1-0:4-1
+Union Berlin v Freiburg                      ,X ,de ,    55,1-1:2-1:1-0:1-2:0-1:0-2:2-0
+B Dortmund v Schalke                         ,10,de ,    55,3-0:2-0:3-1:1-0:2-1:4-0:1-1
+Wolfsburg v Arminia Bielefeld                ,10,de ,    55,2-0:1-0:2-1:1-1:3-1:0-1:3-0
+Werder Bremen v Hoffenheim                   ,X ,de ,    55,1-2:1-1:2-2:2-0:2-1:1-0:0-1:1-3
+B Leverkusen v Augsburg                      ,10,de ,    54,2-0:2-1:1-0:1-1:3-1:0-0:1-2:3-0
+Volos NFC v PAS Giannina                     ,X ,gr ,   115,1-1:2-1:1-0:0-0:2-0:1-2:0-2:0-1:2-2
+Aris v Apollon Smyrnis                       ,10,gr ,   119,2-0:2-1:1-0:3-0:1-1:3-1
+Olympiakos v Atromitos Athens                ,10,gr ,   123,2-0:2-1:1-0:3-0:3-1:1-1
+OFI v Panathinaikos                          ,X ,gr ,   130,1-1:1-2:0-1:1-0:2-0:2-1:0-2
+Larissa v Asteras Tripolis                   ,X ,gr ,   130,1-1:1-0:1-2:0-0:0-1:2-0:2-1:0-2
+AEK Athens v PAOK Salonika                   ,0 ,gr ,   131,2-1:1-1:1-0:1-2:2-0:2-2:0-0:0-1:0-2
+Lamia v Panetolikos                          ,0 ,gr ,   131,1-0:1-1:0-0:2-0:2-1:0-1:1-2
+Apollon Smyrnis v PAS Giannina               ,X ,gr ,   124,1-1:1-0:2-0:0-1:0-0:0-2:1-2:2-2:2-1
+Sassuolo v Torino                            ,0 ,it ,    45,2-1:1-1:1-0:3-1:3-0:2-0:0-0:0-1:0-2:1-2
+Atalanta v Sampdoria                         ,10,it ,    44,2-0:2-1:3-1:1-0:1-1:3-0:0-1:3-2:4-1:4-2
+Genoa v Inter Milan                          ,21,it ,    44,1-2:0-2:1-3:0-1:1-1:1-0:1-4
+Lazio v Bologna                              ,10,it ,    44,2-1:2-0:1-0:1-1:3-0:0-1:0-0:3-1:4-1:4-2
+Cagliari v Crotone                           ,10,it ,    42,1-0:2-0:1-1:1-2:2-1:3-1
+Benevento v Napoli                           ,21,it ,    42,1-3:0-2:0-1:1-2:2-3:0-3:1-4:2-1
+Parma v Spezia                               ,0 ,it ,    42,1-1:1-0:2-1:2-0:1-2:3-1:2-2:3-0:3-2
+Fiorentina v Udinese                         ,0 ,it ,    42,1-1:2-1:1-0:2-0:0-1:1-2:3-1:3-2
+Juventus v Hellas Verona                     ,10,it ,    41,2-0:2-1:3-0:1-0:3-1:0-0:1-2:4-0
+AC Milan v Roma                              ,0 ,it ,    43,2-1:2-0:1-0:1-1:0-1:2-2:4-2:0-0:3-1:3-2
+Kilmarnock v Hibernian                       ,2 ,sc ,    89,1-2:1-1:2-1:0-1:0-2:2-2
+Motherwell v Ross County                     ,10,sc ,    89,2-1:2-0:1-0:1-1:0-1:3-1
+St Johnstone v Dundee Utd                    ,X ,sc ,    89,1-1:2-1:1-2:2-0:0-1:0-2:0-0
+St Mirren v Hamilton                         ,X ,sc ,    89,2-1:1-0:1-1:1-2:2-0:0-1:0-2
+Aberdeen v Celtic                            ,2 ,sc ,    88,1-2:1-1:0-2:1-3:2-1:0-1:2-2
+Rangers v Livingston                         ,10,sc ,    87,2-0:3-0:2-1:4-0:3-1
+Elche v Valencia                             ,X ,es ,    53,1-2:0-1:0-2:1-1:1-0:2-1:0-0
+Osasuna v Ath Bilbao                         ,X ,es ,    53,1-1:1-2:0-1:1-0:2-0:2-1:0-0:0-2
+Barcelona v Real Madrid                      ,X ,es ,    53,2-1:2-2:1-1:1-2:2-3:0-0:0-2:1-0:2-0
+Sevilla v Eibar                              ,10,es ,    53,2-0:2-1:3-1:1-0:1-1:3-0:0-1
+Atl Madrid v Real Betis                      ,10,es ,    51,2-0:2-1:1-0:1-1:3-0:3-2
+Real Valladolid v Alavés                     ,X ,es ,    50,1-0:1-1:0-1:0-0:2-0:2-1:1-3:1-2:2-2
+Cádiz v Villarreal                           ,X ,es ,    48,1-1:1-2:0-2:0-1:1-0:2-1:0-0:2-3
+Getafe v Granada                             ,0 ,es ,    49,2-1:1-0:2-0:1-1:1-2:0-0:3-3
+Real Sociedad v Huesca                       ,10,es ,    48,2-0:2-1:1-0:3-1:3-0:0-0:0-2
+Levante v Celta Vigo                         ,X ,es ,    48,2-1:1-0:0-1:1-1:1-2:2-0:2-2:2-3:0-0
+BK Häcken v Mjällby AIF                      ,1 ,se ,    30,1-0:2-1:3-0:1-1:2-0:0-1:0-2:1-2
+Djurgårdens IF v IK Sirius                   ,1 ,se ,    29,2-0:1-2:0-1:3-0:0-0:0-2:1-0:1-1:2-1
+Kalmar FF v Falkenbergs FF                   ,X ,se ,    27,1-1:1-0:2-1:3-0:0-0:0-1:0-2:2-0:3-1
+Östersunds FK v Hammarby IF                  ,X ,se ,    27,1-2:2-0:0-0:0-1:0-2:1-0:1-1:2-1:3-0
+Malmö FF v IFK Göteborg                      ,0 ,se ,    27,2-0:1-0:0-0:0-2:1-1:2-1:2-2:3-0
+Örebro SK v Helsingborgs IF                  ,X ,se ,    27,1-1:1-0:0-1:0-0:1-2:2-0:2-1:3-0
+IFK Norrköping v AIK                         ,X ,se ,    26,2-1:1-0:2-2:3-0:0-1:1-2:2-0
+Varbergs BoIS v IF Elfsborg                  ,X ,se ,    26,0-0:0-1:0-2:1-3:1-1:1-2:2-1:3-0
+BK Häcken v Djurgårdens IF                   ,X ,se ,    80,2-1:1-1:2-2:0-1:1-2:3-1:0-2:1-0:0-0
+IK Sirius v AIK                              ,1 ,se ,    73,2-1:1-2:0-3:2-0:1-0:3-0:3-1:1-1:0-0:0-1:2-2

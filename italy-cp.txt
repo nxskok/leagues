@@ -1,0 +1,20 @@
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+             DATE: November 21, 2021
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+    WEEK #13  (string id *** DO NOT CHANGE THIS ***)
+
+    atalanta     - spezia        [3]  [1]
+    BOLOGNA      - VENEZIA       [2]  [1]
+    FIORENTINA   - MILAN         [1]  [2]
+    GENOA        - ROMA          [1]  [2]
+    H.VERONA     - EMPOLI        [3]  [1]
+    INTER        - NAPOLI        [2]  [1]
+    LAZIO        - JUVENTUS      [2]  [1]
+    SALERNITANA  - SAMPDORIA     [1]  [2]
+    SASSUOLO     - CAGLIARI      [2]  [1]
+    TORINO       - UDINESE       [1]  [0]
+
+    Reference ID: butle
+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-

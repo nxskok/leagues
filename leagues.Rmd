@@ -3,7 +3,6 @@ title: "Leagues"
 output: html_notebook
 ---
 
-
 ## packages & functions
 
 ```{r, message=F}
@@ -40,13 +39,9 @@ stats <- stats_new
 Sys.time()
 ```
 
-
-
-
 ## retrieve ratings
 
 Estimate new ratings in `ratings` project (first), and check that they are up to date
-
 
 ```{r message=FALSE}
 england_post=read_ratings("england", 2021)
@@ -62,7 +57,6 @@ europe_post=read_ratings("europe", 2020)
 facup_post=read_ratings("facup", 2020)
 ```
 
-
 date of last run (more detail in ratings project)
 
 ```{r}
@@ -73,7 +67,6 @@ last_posterior_date() %>%
   arrange(desc(mtime))
 ```
 
-
 ## leagues --------------------------
 
 ### England
@@ -83,16 +76,16 @@ newgames("en",stats)
 show_teams(england_post$teams)
 is_new=0
 txt="
-8,17,10,Everton v West Brom,4525,2-0:2-1:3-0:3-1:1-0
-20,11,10,Leeds v Fulham,4682,2-1:2-0:3-1:1-0:1-1:3-0
-3,12,10,Man Utd v Crystal Palace,4740,2-0:2-1:3-1:3-0:1-0:1-1
-1,15,10,Arsenal v West Ham,4766,2-0:3-0:3-1:2-1:4-0:1-0
-7,9,2,Southampton v Tottenham,4770,1-2:1-1:2-1:0-2:0-1:1-3:2-2:1-0
-5,19,0,Newcastle v Brighton,4793,2-1:2-0:1-1:1-0:3-1:2-2
-2,4,X,Chelsea v Liverpool,4806,2-2:1-2:1-1:2-1:2-3:1-3:3-2
-14,18,10,Leicester v Burnley,4815,2-0:2-1:1-0:3-1:1-1:3-0
-6,16,X,Aston Villa v Sheff Utd,4737,1-1:2-1:1-0:1-2:0-1:0-0:2-0:2-2
-13,10,21,Wolves v Man City,4738,1-2:1-3:1-1:0-2:2-2:2-1:0-3:2-3
+8,4,X,Everton v Liverpool,4539,2-2:1-2:2-1:1-1:1-3:2-3:3-2
+2,7,10,Chelsea v Southampton,4674,2-0:2-1:3-1:3-0:1-1
+10,1,0,Man City v Arsenal,4697,2-1:3-1:2-2:1-2:1-1:2-0:3-2
+5,3,X,Newcastle v Man Utd,4708,1-2:1-1:2-1:1-3:0-2:2-2:0-1:1-0
+16,11,10,Sheff Utd v Fulham,4683,2-0:1-0:2-1:1-1:0-0:3-1:1-2
+12,19,0,Crystal Palace v Brighton,4707,1-1:2-1:1-2:1-0:2-0:2-2:0-1
+9,15,10,Tottenham v West Ham,4724,2-1:3-1:2-0:3-0:3-2:2-2:1-1:4-1
+14,6,0,Leicester v Aston Villa,4731,2-1:2-2:2-0:1-1:3-1:1-2:1-0:3-2
+17,18,X,West Brom v Burnley,4692,1-1:2-1:1-2:0-1:1-0:0-0:2-0:2-2:0-2
+20,13,X,Leeds v Wolves,4689,2-1:2-2:1-1:1-2:2-0:3-2:3-1:1-0
 "
 d=diff.games(txt,'en',is_new,stats)
 d %>% left_join(all_pred(england_post$post,d), by="game") %>% 
@@ -106,7 +99,6 @@ txt_new=capture.output(newgames("en",stats))
 make_new_txt(txt_new, team_tab)
 ```
 
-
 ### England championship:
 
 ```{r england-champ}
@@ -114,18 +106,18 @@ newgames("en2",stats)
 show_teams(england_champ_post$teams)
 is_new=0
 txt="
-2,16,X,Coventry v QPR,233,1-2:1-1:2-1:0-2:0-1:1-0:2-2:2-0
-14,12,0,Nottm Forest v Cardiff,260,2-1:1-1:2-0:1-0:1-2:2-2:3-1:0-1:0-0
-5,22,10,Blackburn v Wycombe,264,2-0:2-1:3-0:1-0:3-1:1-1
-21,23,10,Brentford v Huddersfield,264,2-0:2-1:1-0:1-1:3-1:3-0:0-1
-18,15,X,Luton v Derby,264,1-1:1-2:2-1:1-0:0-2:0-1:2-0:2-2
-4,7,X,Middlesbrough v Bournemouth,264,1-2:1-1:2-1:0-2:0-1:1-0:2-2:2-0
-1,13,10,Norwich v Preston,264,2-0:2-1:1-0:1-1:3-1:3-0:2-2:1-2
-9,19,10,Reading v Barnsley,264,2-0:2-1:1-0:1-1:3-1:1-2:3-0:0-1
-8,10,2,Rotherham v Millwall,264,1-1:1-2:0-1:0-2:1-0:2-1:0-0:2-0:2-2
-20,6,X,Sheff Wed v Watford,264,1-2:1-1:2-1:0-1:2-2:0-2:1-0:1-3:2-0
-24,3,10,Swansea v Birmingham,264,2-1:2-0:1-0:1-1:1-2:0-1
-11,17,0,Stoke v Bristol City,273,1-1:2-1:2-0:1-0:1-2:2-2:0-1:0-0:0-2
+17,4,10,Bristol City v Middlesbrough,121,2-1:2-0:1-0:1-1:3-1:3-0:1-2
+2,24,2,Coventry v Swansea,120,1-2:1-1:0-1:0-2:1-3:2-1:1-0
+23,15,X,Huddersfield v Derby,121,1-1:2-0:2-1:1-0:1-2:0-1:2-2:0-0
+10,18,0,Millwall v Luton,122,2-1:2-0:1-1:1-0:3-1
+1,3,10,Norwich v Birmingham,122,2-0:2-1:1-0:1-1:3-1:0-2:0-0
+14,8,10,Nottm Forest v Rotherham,122,2-0:1-0:2-1:1-1:0-1:3-1:3-0
+9,22,10,Reading v Wycombe,120,2-0:3-0:2-1:1-0:1-1:3-1:4-0
+12,7,X,Cardiff v Bournemouth,116,1-1:1-2:2-1:0-1:0-2:1-0:2-0:2-2
+16,13,X,QPR v Preston,117,2-1:1-1:1-2:1-0:2-2:0-1:0-0:2-0
+20,21,X,Sheff Wed v Brentford,116,1-2:1-1:2-1:0-1:1-0:2-2:0-2
+11,19,10,Stoke v Barnsley,116,2-0:1-0:2-1:3-0:1-1:3-1:0-1
+6,5,0,Watford v Blackburn,116,2-1:2-0:1-1:1-0:2-2:3-0:3-2   
 "
 d=diff.games(txt,'en2',is_new,stats)
 d %>% left_join(all_pred(england_champ_post$post,d), by="game") %>% 
@@ -146,16 +138,16 @@ newgames("fr",stats)
 show_teams(france_post$teams)
 is_new=0
 txt="
-1,20,10,Lyon v Nîmes,106,2-0:3-0:2-1:1-0:0-0:3-1
-12,6,X,Lens v Bordeaux,118,1-1:1-2:2-1:1-3:1-0:0-1:2-0:0-0:0-2
-7,2,X,Rennes v Monaco,119,1-1:2-1:1-2:2-2:2-0:0-1:1-0
-8,3,21,Nice v PSG,119,1-2:1-3:1-1:0-2:0-1:2-1:0-3:0-4:1-0
-18,15,0,Brest v Lorient,120,1-1:2-1:1-0:2-0:0-0:1-2:2-2:3-1
-10,17,X,Metz v Reims,119,1-1:0-1:2-1:1-2:1-0:0-0:2-2:2-0:0-2
-14,16,10,Montpellier v Angers,119,2-1:1-0:2-0:1-1:0-0
-11,19,0,Strasbourg v Dijon,119,1-0:1-1:2-1:2-0:0-0:0-1:1-2:3-1
-4,13,X,Nantes v Saint-Étienne,119,1-1:1-2:2-1:1-0:2-0:0-0:0-2:2-2:0-1
-5,9,0,Marseille v Lille,119,2-1:1-1:1-0:1-2:2-0:0-0:2-2:3-2:3-1
+19,7,21,Dijon v Rennes,118,1-2:0-2:1-1:0-1:1-0:2-1:1-3:0-0:0-3:2-2
+20,3,21,Nîmes v PSG,127,1-3:1-2:0-2:0-4:1-4:0-1:0-3
+17,15,10,Reims v Lorient,130,2-1:1-1:2-0:1-0:0-1:1-2:3-1
+5,6,10,Marseille v Bordeaux,130,2-1:2-0:1-1:1-0:1-2:0-1:2-2:3-1
+11,1,21,Strasbourg v Lyon,130,1-2:1-3:0-2:1-1:0-1:2-2:2-1
+16,10,X,Angers v Metz,131,2-1:1-1:2-0:1-0:0-1:1-2:0-0:2-2
+2,14,0,Monaco v Montpellier,131,2-1:1-0:2-0:1-1:2-2:3-1:1-2:0-1
+4,18,10,Nantes v Brest,131,2-1:2-0:1-0:1-1:0-1:2-2:1-2
+13,8,0,Saint-Étienne v Nice,131,2-1:1-1:1-0:2-2:0-1:0-2:1-2:2-0
+9,12,0,Lille v Lens,131,2-1:2-0:1-1:1-0:2-2:3-1:1-2:0-1
 "
 d=diff.games(txt,'fr',is_new,stats)
 d %>% left_join(all_pred(france_post$post,d), by="game") %>% 
@@ -169,7 +161,6 @@ txt_new=capture.output(newgames("fr",stats))
 make_new_txt(txt_new, team_tab)
 ```
 
-
 ### Germany
 
 ```{r germany}
@@ -177,15 +168,15 @@ newgames("de",stats)
 show_teams(germany_post$teams)
 is_new=0
 txt="
-2,5,10,Bayern Munich v Schalke,151,3-0:3-1:2-0:2-1:4-1:4-0
-11,17,10,Frankfurt v DSC Arminia Bielefeld,159,2-0:2-1:3-0:1-0:1-1:3-1:2-2:4-1
-12,14,X,Köln v Hoffenheim,159,1-1:1-2:2-1:2-2:1-0:0-1:0-2
-15,7,X,Stuttgart v Freiburg,158,1-1:2-1:1-0:1-2:2-0:2-2:0-1:3-1:0-0:0-2
-16,13,X,Union Berlin v Augsburg,159,2-1:1-1:2-0:1-0:1-2:0-0:0-1:0-2
-1,9,X,Werder Bremen v Hertha Berlin,159,2-1:1-1:1-2:2-2:1-0:3-1:2-0:0-1:0-2
-4,8,10,B Dortmund v B Mgladbach,160,2-1:3-1:2-0:1-1:2-2:3-0:3-2
-18,10,10,RB Leipzig v Mainz,159,2-0:3-1:3-0:2-1:1-0
-6,3,X,Wolfsburg v B Leverkusen,159,1-1:1-2:2-2:2-1:0-2:1-3:1-0
+13,18,21,Augsburg v RB Leipzig,155,1-2:1-3:0-2:1-1:0-3:2-2:0-0
+7,1,X,Freiburg v Werder Bremen,155,1-1:1-2:2-1:2-2:0-1:1-0:0-0:0-2
+9,15,10,Hertha Berlin v Stuttgart,155,2-1:1-0:2-0:1-1:3-1:1-2:2-2
+14,4,21,Hoffenheim v B Dortmund,155,1-2:1-3:2-2:0-2:1-1:2-1:0-3:2-3:0-1
+10,3,2,Mainz v B Leverkusen,155,1-2:0-2:1-1:0-1:1-3:1-0:2-1:0-3
+17,2,21,Arminia Bielefeld v Bayern Munich,155,0-2:0-4:0-3:1-3:0-5:1-2:1-4:0-1
+8,6,10,B Mgladbach v Wolfsburg,156,2-1:1-0:1-1:2-0:3-1:0-0:2-2:3-0:3-2
+12,11,2,Köln v Frankfurt,157,1-2:1-1:0-2:1-3:2-1:0-1:1-0
+5,16,X,Schalke v Union Berlin,157,2-1:1-1:1-0:0-2:1-2:2-0:3-1:0-1:3-0
 "
 
 d=diff.games(txt,'de',is_new,stats)
@@ -200,7 +191,6 @@ txt_new=capture.output(newgames("de",stats))
 make_new_txt(txt_new, team_tab)
 ```
 
-
 ### Greece
 
 ```{r greece}
@@ -208,11 +198,13 @@ newgames("gr",stats)
 show_teams(greece_post$teams)
 is_new=0
 txt="
-3,9,10,PAOK Salonika v Atromitos Athens,111,2-0:2-1:1-0:3-1:3-0:1-1
-2,13,10,Olympiakos v Asteras Tripolis,114,2-0:3-0:2-1:3-1:1-0:4-0:4-1
-11,4,2,Panetolikos v AEK Athens,129,0-2:1-2:0-1:1-1:1-3
-12,7,X,Lamia v OFI,128,1-1:1-0:1-2:2-1:0-0:2-0:0-1:0-2
-14,8,X,Volos NFC v Aris,127,1-1:0-1:1-2:1-0:2-0:2-1:0-0:0-2
+14,6,X,Volos NFC v PAS Giannina,115,1-1:2-1:1-0:0-0:2-0:1-2:0-2:0-1:2-2
+8,5,10,Aris v Apollon Smyrnis,119,2-0:2-1:1-0:3-0:1-1:3-1
+2,9,10,Olympiakos v Atromitos Athens,123,2-0:2-1:1-0:3-0:3-1:1-1
+7,1,X,OFI v Panathinaikos,130,1-1:1-2:0-1:1-0:2-0:2-1:0-2
+10,13,X,Larissa v Asteras Tripolis,130,1-1:1-0:1-2:0-0:0-1:2-0:2-1:0-2
+4,3,0,AEK Athens v PAOK Salonika,131,2-1:1-1:1-0:1-2:2-0:2-2:0-0:0-1:0-2
+12,11,0,Lamia v Panetolikos,129,1-0:1-1:0-0:2-0:2-1:0-1:1-2
 "
 d=diff.games(txt,'gr',is_new,stats)
 d %>% left_join(all_pred(greece_post$post,d), by="game") %>% 
@@ -231,15 +223,18 @@ make_new_txt(txt_new, team_tab)
 ```{r italy}
 newgames("it",stats)
 show_teams(italy_post$teams)
-is_new=0
+is_new=01
 txt="
-14,15,0,Fiorentina v Torino,139,2-1:1-1:2-0:1-0:3-1:1-2
-18,2,21,Hellas Verona v Roma,139,1-2:1-3:0-2:0-1:1-1:0-0
-4,16,2,Parma v Napoli,140,1-2:1-1:0-2:0-1:2-1:1-3:2-2
-17,10,10,Genoa v Crotone,141,2-0:1-0:2-1:1-1:0-0:3-1
-20,13,0,Sassuolo v Cagliari,142,2-1:1-1:1-0:2-0:1-2:2-2:0-0:3-2
-3,8,10,Juventus v Sampdoria,140,2-0:3-0:2-1:3-1
-1,9,10,AC Milan v Bologna,122,2-0:2-1:3-1:1-0:1-1:3-0
+20,15,X,Sassuolo v Torino,22,2-1:1-1:0-0:0-2:1-0:1-2:2-0:2-2:2-3:3-0:3-1
+12,8,10,Atalanta v Sampdoria,22,2-0:2-1:1-1:3-0:0-0:1-0:1-2:2-3:3-1:3-2
+17,5,2,Genoa v Inter Milan,22,0-2:1-2:1-1:1-3:0-0:0-1:1-4:2-1:2-3:3-0
+6,9,10,Lazio v Bologna,22,2-0:3-0:1-0:2-1:1-1:4-1:0-0:0-2:1-2:3-2
+13,10,X,Cagliari v Crotone,22,1-0:1-2:2-0:1-1:2-1:0-0:0-1:3-0:3-1:3-2
+19,16,21,Benevento v Napoli,22,1-2:0-2:1-3:0-1:0-3:2-1:2-3:0-0:1-1:1-4:3-0
+4,11,0,Parma v SPEZ,22,1-0:1-1:1-2:2-0:2-1:3-0:0-0:2-2:3-1:3-2
+14,7,10,Fiorentina v Udinese,22,2-1:1-0:2-0:1-1:1-2:3-2:0-0:1-3:3-0:3-1
+3,18,10,Juventus v Hellas Verona,21,2-0:3-0:1-2:2-1:3-1:1-0:3-2:4-0:5-1
+1,2,0,AC Milan v Roma,23,2-1:1-1:2-0:0-0:1-0:3-2:0-1:1-2:2-2:3-0:3-1:4-2
 "
 
 d=diff.games(txt,'it',is_new,stats)
@@ -257,25 +252,21 @@ txt_new=capture.output(newgames("it",stats))
 make_new_txt(txt_new, team_tab)
 ```
 
-
 idea: get predictions from new and old stats, and display only the different ones
 
 ### Scotland
-
-
-
 
 ```{r scotland}
 newgames("sc",stats)
 show_teams(scotland_post$teams)
 is_new=0
 txt="
-1,6,10,Celtic v Livingston,278,3-0:4-0:2-0:4-1:3-1:5-0
-3,11,0,Dundee Utd v St Mirren,280,2-1:1-0:1-1:2-0:1-2:0-1
-7,12,0,Kilmarnock v Hamilton,280,2-1:2-0:1-1:1-0:3-1:1-2
-9,10,X,St Johnstone v Ross County,280,1-1:2-1:1-0:2-0:1-2:0-1
-5,2,21,Hibernian v Rangers,297,1-2:0-2:1-3:1-1:2-1:2-2:0-1:1-0
-8,4,10,Aberdeen v Motherwell,299,2-1:2-0:1-0:3-0:3-1:1-1:2-2
+1,2,0,Celtic v Rangers,302,2-1:1-1:1-2:3-1:2-2:2-0
+3,8,2,Dundee Utd v Aberdeen,304,1-2:1-1:0-1:0-2:1-3:2-2:2-1
+12,9,X,Hamilton v St Johnstone,304,1-1:1-0:2-1:1-2:0-1:0-0:0-2:2-2
+6,7,X,Livingston v Kilmarnock,304,1-1:2-1:1-2:1-0:2-0:0-1:0-2
+10,5,21,Ross County v Hibernian,303,1-2:0-2:1-3:1-1:0-1:0-3
+8,12,10,Aberdeen v Hamilton,279,2-0:2-1:1-0:3-0:1-1:3-1
 "
 d=diff.games(txt,'sc',is_new,stats)
 d %>% left_join(all_pred(scotland_post$post,d), by="game") %>% 
@@ -289,7 +280,6 @@ txt_new=capture.output(newgames("sc",stats))
 make_new_txt(txt_new, team_tab)
 ```
 
-
 ### Spain
 
 ```{r spain}
@@ -297,13 +287,16 @@ newgames("es",stats)
 show_teams(spain_post$teams)
 is_new=0
 txt="
-8,18,10,Villarreal v Eibar,139,2-0:2-1:1-1:1-0:3-1:3-0
-17,7,0,Getafe v Osasuna,154,2-1:1-1:2-0:1-0:1-2:0-1
-14,1,X,Celta Vigo v Valencia,142,1-2:1-1:2-1:0-2:1-3:2-2:0-1:1-0
-19,10,0,Huesca v Cádiz,153,1-0:1-1:2-1:0-0:0-1:1-2:2-0:2-2
-20,16,10,Granada v Alavés,153,2-1:1-0:2-0:1-1:0-1:1-2:0-2
-9,12,10,Real Betis v Real Valladolid,152,2-1:2-0:1-0:1-1:1-2:2-2:3-1
-11,2,21,Real Sociedad v Real Madrid,152,1-2:1-3:0-2:0-3
+20,6,2,Granada v Sevilla,161,1-2:1-1:0-2:1-3:0-1:0-0:2-2
+14,5,21,Celta Vigo v Atl Madrid,165,1-2:0-2:1-3:0-1:1-1
+2,10,10,Real Madrid v Cádiz,162,3-0:2-0:4-0:3-1:1-0:2-1:5-0
+17,3,21,Getafe v Barcelona,165,0-2:1-2:1-3:0-3:0-1:1-1:2-2
+18,7,X,Eibar v Osasuna,163,1-1:2-1:2-0:0-1:1-0:1-2:0-0:0-2:2-2
+4,15,10,Ath Bilbao v Levante,163,2-1:1-0:2-0:1-1:1-2:3-1:0-1:2-2
+8,1,X,Villarreal v Valencia,164,1-1:2-1:2-2:2-0:1-2:1-0:0-1:0-2:1-3
+16,13,0,Alavés v Elche,164,2-0:1-0:1-1:2-1:0-0:1-2:0-1
+19,12,X,Huesca v Real Valladolid,164,1-0:1-1:1-2:2-1:0-0:0-2:0-1:2-2
+9,11,X,Real Betis v Real Sociedad,164,2-1:1-1:2-0:2-2:1-2:0-1:1-0:0-0
 "
 d=diff.games(txt,'es',is_new,stats)
 d %>% left_join(all_pred(spain_post$post,d), by="game") %>% 
@@ -317,8 +310,6 @@ txt_new=capture.output(newgames("es",stats))
 make_new_txt(txt_new, team_tab)
 ```
 
-
-
 ### Sweden
 
 ```{r sweden}
@@ -326,16 +317,14 @@ newgames("se",stats)
 show_teams(sweden_post$teams)
 is_new=0
 txt="
-12,15,X,Falkenbergs FF v Varbergs BoIS,76,1-2:1-1:0-1:2-1:1-0:2-2:2-0
-10,9,0,IF Elfsborg v Mjällby AIF,76,2-0:1-1:0-1:2-1:2-2:0-0:1-0:3-1
-6,2,X,AIK v Hammarby IF,84,1-1:1-0:1-2:2-1:0-1:0-2:0-0:2-0:2-2:3-0:3-1
-16,5,X,Östersunds FK v Djurgårdens IF,84,1-2:1-1:2-1:1-3:0-1:0-2:2-0:0-0
-4,3,0,IFK Göteborg v Kalmar FF,85,1-1:2-1:1-0:2-0:0-0:1-2:2-2
-11,1,X,IFK Norrköping v Malmö FF,85,2-1:1-1:1-2:1-0:0-0:0-1:1-3:2-2:0-2:2-0
-10,13,X,IF Elfsborg v BK Häcken,53,1-0:1-1:2-0:2-1:0-2:1-2:2-2
-14,12,0,IK Sirius v Falkenbergs FF,53,2-0:2-1:1-0:1-1:0-0:3-0:3-1
-9,8,X,Mjällby AIF v Örebro SK,53,1-1:2-1:0-0:0-1:0-2:1-0:1-2:2-0:2-2
-15,7,X,Varbergs BoIS v Helsingborgs IF,53,1-1:1-2:0-0:0-1:1-0:2-1:3-0
+12,8,X,Falkenbergs FF v Örebro SK,91,1-2:0-2:1-1:2-1:1-0:1-3:0-0:3-0
+2,9,10,Hammarby IF v Mjällby AIF,96,2-0:2-1:3-0:1-0:2-2:3-1:1-1:0-0:0-1
+10,3,10,IF Elfsborg v Kalmar FF,96,2-1:2-0:1-1:1-0:3-0:3-1:2-2
+14,16,X,IK Sirius v Östersunds FK,96,2-1:1-1:2-0:1-0:0-1:0-2:2-2:0-0:1-2
+6,4,0,AIK v IFK Göteborg,97,1-0:1-1:2-1:2-0:0-1:3-0:3-1:0-0:1-2
+15,11,21,Varbergs BoIS v IFK Norrköping,97,1-2:0-2:0-3:0-1:1-1:1-0:1-3
+5,1,X,Djurgårdens IF v Malmö FF,94,1-2:1-1:0-2:2-1:0-1:1-0:0-3:2-0:2-3
+7,13,X,Helsingborgs IF v BK Häcken,95,1-2:1-1:0-2:0-1:2-1:0-0:1-0:2-0:1-3:2-2
 "
 d=diff.games(txt,'se',is_new,stats)
 d %>% left_join(all_pred(sweden_post$post,d), by="game") %>% 
@@ -349,7 +338,7 @@ txt_new=capture.output(newgames("se",stats))
 make_new_txt(txt_new, team_tab)
 ```
 
-
+or api.clubelo.com/Fixtures (csv)
 
 ### champions league
 
@@ -379,7 +368,6 @@ make_new_txt(txt_new, team_tab)
 ```
 
 ### europa league
-
 
 ```{r europa}
 newgames("eue",stats)
@@ -433,24 +421,72 @@ txt_new=capture.output(newgames("enf",stats))
 make_new_txt(txt_new, team_tab)
 ```
 
+## clubelo
+
+```{r}
+library(tidyverse)
+fixtures0 <- read_csv("http://api.clubelo.com/Fixtures")
+fixtures0 %>% 
+  select(-starts_with("GD")) %>% 
+  pivot_longer(starts_with("R:"), names_to = "result", values_to = "prob") %>% 
+  extract(result, into = c("s1", "s2"), regex = "R:(.)-(.)", convert = TRUE) %>% 
+  nest_by(Date, Country, Home, Away) -> fixtures
+fixtures
+```
+data has columns s1, s2, prob
+
+write function to get best expected point prediction per ptf
+
+
+add bonuses to this
+
+```{r}
+ptf <- function(p1, p2, s1, s2) {
+  case_when(
+    p1 == s1 & p2 == s2 ~ 3,
+    p1 > p2 & s1 > s2   ~ 1,
+    p1 == p2 & s1 == s2 ~ 1,
+    p1 < p2 & s1 < s2   ~ 1,
+    TRUE                ~ 0
+  )  
+}
+```
+
+
+```{r}
+best_pred <- function(p) {
+  prd <- crossing(p1=0:6, p2=0:6)
+  prd %>% crossing(p) %>% 
+    mutate(pts = ptf(p1, p2, s1, s2)) %>% 
+    group_by(p1, p2) %>% 
+    summarise(ept = sum(pts*prob)) %>% 
+    ungroup() %>% 
+    filter(ept==max(ept)) -> d
+  str_c(d$p1, " - ", d$p2)
+}
+```
+
+
+
+```{r}
+fixtures %>% 
+  summarize(pred = best_pred(data)) %>% View("clubelo")
+```
+
+## run to here
 
 ### junk
 
-league
-<chr>
-maxdiff
-<dbl>
-gr	23.529412			
-fr	22.500000			
-eue	20.388350			
-de	18.367347			
-sc	16.822430			
-en2	16.190476			
-es	13.725490			
-it	12.244898			
-euc	11.147541			
-enf	2.061856	
-
+league <chr> maxdiff <dbl> gr 23.529412\
+fr 22.500000\
+eue 20.388350\
+de 18.367347\
+sc 16.822430\
+en2 16.190476\
+es 13.725490\
+it 12.244898\
+euc 11.147541\
+enf 2.061856
 
 ```{r}
 team_tab=old_txt_to_numbers(txt)

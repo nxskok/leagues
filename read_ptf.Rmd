@@ -1,0 +1,332 @@
+
+packages
+
+```{r}
+library(tidyverse)
+library(rvest)
+```
+
+think about submitting a form
+
+play with France
+
+```{r}
+the_url <- "https://ligue1.predictthefootball.com/profile/index"
+```
+
+
+
+login
+
+```{r}
+sess <- html_session(the_url)
+form <- html_form(sess)
+# form
+filled_form <- set_values(form[[1]],
+                          "LoginForm[email]" = Sys.getenv("PTF_USER"),
+                          "LoginForm[password]" = Sys.getenv("PTF_PASS"),
+                          "LoginForm[rememberMe]" = 1
+                          )
+
+submit_form(sess, filled_form)
+```
+
+set base and add to it
+
+```{r}
+base <- "https://ligue1.predictthefootball.com"
+index_page <- "/profile/index"
+```
+
+```{r}
+get_form(base, sess)
+```
+
+get form as form
+
+```{r}
+my_url <- str_c(base, index_page)
+page <- jump_to(sess, my_url)
+page %>% html_form() %>% 
+  .[[2]] 
+```
+
+mimic the idea for logging in: here was the login one
+
+```{r}
+sess <- html_session(the_url)
+form <- html_form(sess)
+# form
+filled_form <- set_values(form[[1]],
+                          "LoginForm[email]" = Sys.getenv("PTF_USER"),
+                          "LoginForm[password]" = Sys.getenv("PTF_PASS"),
+                          "LoginForm[rememberMe]" = 1
+                          )
+
+submit_form(sess, filled_form)
+```
+
+all right:
+
+```{r}
+sess2 <- html_session(my_url)
+form <- html_form(sess2)
+form
+```
+
+this throws me back to the login form
+
+why is reading sticky but writing not?
+
+so, I have to use the login session then:
+
+```{r}
+# my_url <- str_c(base_url, index_page)
+page <- jump_to(sess, my_url)
+page %>% html_form() %>% .[[2]] -> form
+form
+
+```
+
+
+fill form
+
+```{r}
+filled_form <- set_values(form,
+                          "home[179]" = "2",
+                          "away[179]" = "6"
+                          )
+filled_form
+submit_form(sess, filled_form, submit = "save")
+```
+
+get the form again and see what values it contains
+
+```{r}
+page <- jump_to(sess, my_url)
+page %>% html_form() %>% .[[2]] -> form
+form
+
+```
+
+I don't know why this isn't sticky.
+
+
+function to get stats for a prediction
+
+```{r}
+get_stats <- function(my_url) {
+  page <- read_html(my_url) 
+  page %>% html_text() %>% str_split("\n\t") %>%
+  .[[1]] %>% 
+  str_replace_all("[\n\t ]", "") -> v
+  # number of predictions
+  v[1] %>% 
+    str_extract("(?<=:).*$") %>% as.numeric() -> n_pred
+  # result stats
+  v[c(2,4,6)] %>% str_extract("[0-9.]+") %>% as.numeric() -> results
+  results + 100/n_pred -> w
+  names(w) <- 2:0
+  enframe(w) %>% filter(value<20) %>% pull(name) %>% 
+    paste(collapse = "") -> result_stats
+  if (result_stats == "") result_stats <- "X"
+  # score_stats
+  v[-c(1:9, length(v))] %>% enframe() %>% 
+  mutate(odd = name %% 2) %>%
+  mutate(div = name %/% 2 + odd) %>% 
+  select(-name) %>% 
+  pivot_wider(names_from = odd, values_from = value) %>% 
+  rename("score" = `1`, percent = `0`) %>% 
+  mutate(percent2 = str_extract(percent, "[0-9.]+")) %>% 
+  mutate(percent3 = as.numeric(percent2)) %>% 
+  mutate(percent4 = percent3 + 100/n_pred) %>% 
+  filter(percent4 > 5) %>% 
+  pull(score) %>% 
+    paste(collapse = ":") -> score_stats
+  list(preds = n_pred, results = result_stats, scores = score_stats)
+}
+```
+
+from a league url, get the form (having logged in)
+
+```{r}
+get_form <- function(base_url, session) {
+  index_page <- "/profile/index"
+  my_url <- str_c(base_url, index_page)
+  page <- jump_to(session, my_url)
+  page %>% read_html() %>%   html_nodes("form") %>% 
+  .[[2]] %>% html_nodes("td") -> as_form
+as_form %>% html_attr("class") -> classes
+as_form %>% html_text() -> texts
+as_form %>% html_nodes("a") %>% 
+  html_attr("href") -> fixture_hrefs
+tibble(class=classes, text = texts) %>%
+  filter(str_detect(class, "^team-name")) %>%
+  mutate(col = gl(n = 2, k = 1, length = nrow(.))) %>%
+  mutate(row = gl(n = nrow(.)/2, k=2)) %>%
+  select(-class) %>%
+  extract(text, into = "pred", regex = "\t +([0-9]+)\t", remove = FALSE) %>%
+  extract(text, into = "name1", regex = "[0-9]+\t +(.*)\n\t *$", remove = FALSE) %>%
+  extract(text, into = "name2", regex = "\n\t +(.*)\n\t *$") %>%
+  mutate(name = ifelse(is.na(pred), name2, name1)) %>%
+  select(-name1, -name2) %>%
+  pivot_wider(names_from = col, values_from = c(name, pred)) %>%
+  mutate(stats_url = str_c(base_url, fixture_hrefs)) %>%
+  extract(stats_url, into = "game_number", regex = "fixtureid=([0-9]+)$", remove = FALSE) %>% 
+  mutate(stats = map(stats_url, ~get_stats(.))) %>% 
+  unnest_wider(stats) %>% 
+  select(-row, -stats_url)
+}
+# get_form("https://premierleague.predictthefootball.com", sess) %>% View("england")
+# get_form("https://laliga.predictthefootball.com", sess) %>% View("spain")
+```
+
+this is good; now do it for all the leagues
+
+```{r}
+tmpname <- str_c(tempfile("stats_", "."), ".txt")
+tmpname
+leagues <- read_csv("short_url.csv")
+# leagues %>% mutate(form = map(url, ~get_form(., sess)))
+leagues %>% 
+  rowwise() %>% 
+  mutate(form = list(get_form(url, sess))) -> d
+d %>% unnest(form) %>% 
+  mutate(fixture = str_c(name_1, " v ", name_2)) %>% 
+  select(game = fixture, 
+         res = results, 
+         league = short,
+         howmany = game_number,
+         scores
+         ) %>% 
+  write_csv(tmpname)
+```
+
+
+## jottings from here
+
+go to a page
+
+```{r}
+my_url <- str_c(base, index_page)
+page <- jump_to(sess, my_url)
+page %>% html_form() %>% 
+  .[[2]] 
+```
+
+this includes the predictions I've entered already,
+but I don't know which games they belong to
+
+plus I can't attack this, but
+
+```{r}
+page %>% read_html() %>%   html_nodes("form") %>% 
+  .[[2]] %>% html_nodes("td") -> as_form
+as_form
+```
+
+get the stats buttons
+
+```{r}
+as_form %>% html_nodes("a") %>% 
+  html_attr("href")
+```
+
+
+
+or
+
+```{r}
+page %>% html_nodes("a") %>% 
+  html_attr("href") %>% enframe() %>% 
+  filter(str_detect(value, "fixtureid")) %>% 
+  pull(value) -> v
+v
+```
+
+first way is cleaner
+
+get the team names
+
+```{r}
+as_form %>% html_attr("class") -> classes
+classes
+as_form %>% html_text() -> texts
+tibble(class=classes, text = texts) %>% 
+  filter(str_detect(class, "^team-name")) %>% 
+  mutate(col = gl(n = 2, k = 1, length = nrow(.))) %>% 
+  mutate(row = gl(n = nrow(.)/2, k=2)) %>% 
+  select(-class) %>% 
+  extract(text, into = "pred", regex = "\t +([0-9]+)\t", remove = FALSE) %>% 
+  extract(text, into = "name1", regex = "[0-9]+\t +(.*)\n\t *$", remove = FALSE) %>% 
+  extract(text, into = "name2", regex = "\n\t +(.*)\n\t *$") %>%
+  mutate(name = ifelse(is.na(pred), name2, name1)) %>% 
+  select(-name1, -name2) %>% 
+  pivot_wider(names_from = col, values_from = c(name, pred)) %>% 
+  mutate(stats_url = str_c(base, v)) -> d
+d
+```
+
+yeah!
+
+Maybe I also need the match dates, and the scores of the matches that have them.
+
+
+```{r}
+d %>% mutate(stats = map(stats_url, ~get_stats(.))) %>% 
+  unnest_wider(stats) %>% 
+  select(-row, -stats_url)
+```
+
+oh, there are only predictions for the games that have finished
+
+
+```{r}
+my_url <- "https://laliga.predictthefootball.com/site/stats?fixtureid=151"
+# page2 <- jump_to(sess, my_url)
+page <- read_html(my_url) 
+```
+
+
+
+this doesn't get the total predictions
+
+```{r}
+page %>% html_text() %>% str_split("\n\t") %>%
+  .[[1]] %>% 
+  str_replace_all("[\n\t ]", "") -> v
+v
+```
+
+all the information can be extracted from here
+
+```{r}
+v[1] %>% 
+  str_extract("(?<=:).*$") %>% as.numeric() -> n_pred
+n_pred
+```
+
+```{r}
+v[c(2,4,6)] %>% str_extract("[0-9.]+") %>% as.numeric() -> results
+results 
+results + 100/n_pred -> w
+names(w) <- 2:0
+w
+enframe(w) %>% filter(value<20) %>% pull(name)
+```
+
+```{r}
+v[-c(1:9, length(v))] %>% enframe() %>% 
+  mutate(odd = name %% 2) %>%
+  mutate(div = name %/% 2 + odd) %>% 
+  select(-name) %>% 
+  pivot_wider(names_from = odd, values_from = value) %>% 
+  rename("score" = `1`, percent = `0`) %>% 
+  mutate(percent2 = str_extract(percent, "[0-9.]+")) %>% 
+  mutate(percent3 = as.numeric(percent2)) %>% 
+  mutate(percent4 = percent3 + 100/n_pred) %>% 
+  filter(percent4 > 5) %>% 
+  pull(score)
+```
+
+any score apart from those gets bonus points

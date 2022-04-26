@@ -1,0 +1,1 @@
+game,res,league,howmany,scores

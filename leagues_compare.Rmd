@@ -1,0 +1,346 @@
+## packages
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(rvest)
+library(conflicted)
+conflict_prefer("filter", "dplyr")
+source("20180726_functions.R")
+source("stats_functions.R")
+```
+
+
+## get latest preds
+
+```{r}
+# tmpname <- str_c(tempfile("stats_", "."), ".txt")
+# cmd <- str_c("./stats.sh | tee ", tmpname)
+# cmd
+# system(cmd)
+```
+
+
+log in
+
+```{r}
+the_url <- "https://www.predictthefootball.com/?lang=en_us"
+sess <- session(the_url)
+form <- html_form(sess)
+# form
+filled_form <- html_form_set(form[[1]],
+                          "LoginForm[email]" = Sys.getenv("PTF_USER"),
+                          "LoginForm[password]" = Sys.getenv("PTF_PASS"),
+                          "LoginForm[rememberMe]" = 1
+                          )
+
+session_submit(sess, filled_form)
+```
+
+get and write to csv
+
+```{r}
+tmpname <- str_c(tempfile("stats_", "."), ".txt")
+tmpname
+leagues <- read_csv("short_url.csv")
+# leagues %>% mutate(form = map(url, ~get_form(., sess)))
+# there is a problem with sweden
+# leagues %>% filter(short != "se") -> leagues
+# put above back when sweden back
+leagues %>% 
+  rowwise() %>% 
+  mutate(form = list(get_form(url, sess))) -> d
+d %>% unnest(form) %>% 
+  mutate(fixture = str_c(name_1, " v ", name_2)) %>% 
+  select(game = fixture, 
+         res = results, 
+         league = short,
+         howmany = game_number,
+         scores
+         ) %>% 
+  write_csv(tmpname)
+
+```
+
+
+
+
+
+end of bit I inserted to get rid of perl
+
+
+## find the two most recent ones
+
+```{r}
+tibble(files = list.files(pattern = "*.txt")) %>% 
+  rowwise() %>% mutate(info = file.mtime(files)) %>% 
+  filter(files != "stats.txt") %>% 
+  arrange(desc(info)) -> filenames
+filenames
+```
+
+
+
+```{r}
+stats1 <- read_csv(filenames$files[1])
+stats1
+stats0 <- read_csv(filenames$files[2])
+stats0
+```
+
+
+
+
+new games? 
+
+```{r}
+stats0
+stats1
+stats1 %>% anti_join(stats0, by="game") -> new_games
+new_games
+```
+
+ratings (copy for now)
+
+```{r}
+england_post=read_ratings("england", 2022)
+england_champ_post=read_ratings("england_champ", 2022)
+france_post=read_ratings("france", 2022)
+germany_post=read_ratings("germany", 2022)
+greece_post=read_ratings("greece", 2022)
+italy_post=read_ratings("italy", 2022)
+scotland_post=read_ratings("scotland", 2022)
+spain_post=read_ratings("spain", 2022)
+sweden_post=read_ratings("sweden",2021)
+```
+
+```{r}
+# france_post$teams %>% View()
+```
+
+
+
+make correspondence with stats_i and ratings
+
+```{r}
+league_names <- tribble(
+  ~short, ~long,
+"de", "germany",
+"en", "england",
+"en2", "england_champ",
+"es", "spain",
+"fr", "france",
+"gr", "greece",
+"it", "italy",
+"sc", "scotland",
+"se", "sweden"
+)
+league_names
+```
+
+hand edit teams.csv
+
+long is ratings
+short is ptf
+
+```{r}
+teams <- read_csv("teams.csv")
+nr <- nrow(teams)
+teams %>% mutate(row = gl(nr/2, 2, nr)) %>% 
+  pivot_wider(names_from = length, values_from = team) %>% 
+  select(-row) -> team_lookup_table
+team_lookup_table
+```
+
+function to make everything long
+
+```{r}
+make_long <- function(stats_tab, league_names, team_lookup_table) {
+  stats_tab %>% separate(game, into = c("t1", "t2"), sep = " v ") %>% 
+  left_join(league_names, by=c("league" = "short")) %>% 
+  left_join(team_lookup_table, by=c("t1" = "short")) %>% 
+  left_join(team_lookup_table, by=c("t2" = "short")) %>%
+  filter(long.x == league.y) %>% 
+  select(league, t1 = long.y, t2 = long, res, howmany, scores)
+}
+```
+
+```{r}
+new_long <- make_long(new_games, league_names, team_lookup_table)
+stats0_long <- make_long(stats0, league_names, team_lookup_table)
+stats1_long <- make_long(stats1, league_names, team_lookup_table)
+stats1_long
+```
+
+
+
+function to get posterior predictive dist
+
+```{r}
+ppd2 <- function(league_name, t1_name, t2_name) {
+  ratings <- get(str_c(league_name, "_post"))
+  teams <- ratings$teams
+  tibble(team = c(t1_name, t2_name)) %>% left_join(teams, by="team") -> ids
+  draws <- rstan::extract(ratings$post)
+  t1 <- ids$id[1]
+  t2 <- ids$id[2]
+  tibble(nu1 = draws$o[,t1] - draws$d[,t2] + draws$h,
+         nu2 = draws$o[,t2] - draws$d[,t1]) %>% 
+    mutate(l1 = exp(nu1), l2 = exp(nu2)) -> d
+  nr <- nrow(d)
+  d %>% mutate(s1 = rpois(nr, l1), s2 = rpois(nr, l2)) %>% 
+    count(s1, s2) %>% 
+    mutate(p = n/sum(n)) %>% 
+    select(-n) %>% arrange(desc(p))
+}
+```
+
+
+
+
+
+
+```{r}
+res <- function(s1, s2) {
+  case_when(
+    s1<s2  ~ "0",
+    s1==s2 ~ "1",
+    s1>s2  ~ "2" 
+    )
+}
+
+ptf_pts <- function(p1, p2, o1, o2, resses, scores) {
+  pr <- res(p1, p2)
+  or <- res(o1, o2)
+  r_correct <- pr == or
+  s_correct <- (p1 == o1) & (p2 == o2)
+  r_bonus <- str_detect(resses, or) & r_correct
+  # return(list(pr, or, r_correct, s_correct, r_bonus))
+  s_bonus <- !str_detect(scores, str_c(o1, "-", o2)) & s_correct
+  r_correct + 2*s_correct + 2*r_bonus + 2*s_bonus
+}
+
+ptf_gd <- function(s1, s2) {
+  case_when(
+    s1 != s2 ~ -abs(s1-s2),
+    s1 == 0  ~ 1,
+    TRUE     ~ 2*s1
+  )
+}
+
+cp_pts <- function(p1, p2, o1, o2) {
+  pr <- res(p1, p2)
+  or <- res(o1, o2)
+  pd <- p1-p2
+  od <- o1-o2
+  diff1 <- abs(p1-o1) + abs(p2-o2) + abs(pd-od)
+  diff2 <- abs(p1-o1) + abs(p2-o2)
+  case_when(
+    pr == or ~ max(20-diff1, 8),
+    TRUE     ~ max(8-diff2, 0) 
+  )
+}
+```
+
+
+expected points by prediction
+
+```{r}
+ept_ptf <- function(p, resses, scores) {
+  crossing(pred1=0:6, pred2=0:6, p) %>% 
+    rowwise() %>% 
+    mutate(pt = ptf_pts(pred1, pred2, s1, s2, resses, scores)) %>% # goal difference here too
+    group_by(pred1, pred2) %>% 
+    summarize(ept = sum(pt*p)) %>% 
+    arrange(desc(ept)) %>% 
+    ungroup() %>% 
+    slice(1) %>%
+    mutate(pred = str_c(pred1, "-", pred2)) %>% 
+    pull(pred)
+}
+
+ept_cp <- function(p) {
+  crossing(pred1=0:6, pred2=0:6, p) %>% 
+    rowwise() %>% 
+    mutate(pt = cp_pts(pred1, pred2, s1, s2)) %>% # goal difference here too
+    group_by(pred1, pred2) %>% 
+    summarize(ept = sum(pt*p)) %>% 
+    arrange(desc(ept)) %>% 
+    ungroup() %>% 
+    slice(1) %>%
+    mutate(pred = str_c(pred1, "-", pred2)) %>% 
+    pull(pred)
+}
+
+```
+
+
+
+all the preds
+
+```{r}
+make_all_preds <- function(long) {
+  long %>% 
+    filter(league != "england_f") %>% 
+    rowwise() %>% 
+    mutate(p = list(ppd2(league, t1, t2))) %>% 
+    mutate(pred = ept_ptf(p, res, scores)) %>% 
+    select(league, t1, t2, pred)
+}
+
+make_all_preds_cp <- function(long) {
+  long %>% filter(league == "italy") %>% 
+    rowwise() %>% 
+    mutate(p = list(ppd2(league, t1, t2))) %>% 
+    mutate(pred = ept_cp(p)) %>% 
+    select(league, t1, t2, pred)
+}
+```
+
+
+changes
+
+
+```{r}
+Sys.time()
+d0 <- read_rds("last_all.rds")
+# d0 <- make_all_preds(stats0_long) 
+d1 <- make_all_preds(stats1_long)
+write_rds(d1, "last_all.rds")
+# d0 %>% left_join(d1, by=c("league", "t1", "t2")) %>% 
+  # filter(pred.x != pred.y) %>% 
+  # mutate(is_same = ifelse(pred.x == pred.y, "same", "** different **")) %>% 
+  # filter(league != "england_f") %>% 
+  # View("changes")
+d1 %>% 
+  filter(league != "england_f") %>% 
+  View("changes")
+# View(d1)
+```
+
+preds for new
+
+```{r}
+Sys.time()
+make_all_preds(new_long) %>% 
+  filter(league != "england_f") %>% 
+  View("new games")
+```
+
+italy 
+
+```{r}
+Sys.time()
+make_all_preds_cp(new_long) %>% View("italy - cp")
+```
+
+
+
+
+## this works.
+
+```{r}
+# nothing here
+```
+
+

@@ -1,0 +1,111 @@
+selenium
+
+```{r}
+library(RSelenium)
+library(tidyverse)
+library(rvest)
+source("oddschecker_functions.R")
+```
+
+```{r}
+# my_url <- "https://www.oddschecker.com/football/english/championship"
+# my_url <- "https://www.oddschecker.com/football/champions-league"
+# my_url <- "https://www.oddschecker.com/football/europa-league"
+my_url <- "https://www.oddschecker.com/football/uefa-europa-conference-league"
+# my_url <- "https://www.oddschecker.com/football/english/premier-league"
+# my_url <- "https://www.oddschecker.com/football/scottish/premiership"
+# my_url <- "https://www.oddschecker.com/football/english/fa-cup"
+```
+
+
+run in terminal
+
+```{bash, eval = FALSE}
+cd Downloads
+java -jar selenium-server-standalone-3.9.1.jar 
+```
+
+connect to it
+
+```{r}
+remDr <- remoteDriver(
+  remoteServerAddr = "localhost",
+  port = 4444L,
+  browserName = "firefox"
+)
+remDr
+```
+
+test
+
+
+```{r}
+rD <- rsDriver(port=4448L,browser="firefox")
+remDr <- rD$client
+```
+
+
+```{r}
+remDr$navigate(my_url)
+```
+
+finding stuff on there
+
+```{r}
+webElem <- remDr$findElement(using = "css", value = ".js-close-class")
+# webElem <- remDr$findElement(using = "css", value = "html.customproperties.webp.webp-alpha.webp-animation.webp-lossless body.desktop.hoverable.beta.beta-new.gdpr-live.js.ng-scope div#promo-modal.responsive-modal.modal-dialog.offers-4.display-block.active div.responsive-modal-dialog-inner div.responsive-content-wrapper span.js-close-class.offer-close")
+webElem$clickElement()
+remDr$getCurrentUrl()
+```
+
+```{r}
+webElem <- remDr$findElement(using = "css", value = ".at-hda")
+webElem$getElementAttribute("class")
+```
+
+```{r}
+my_html <- remDr$getPageSource()[[1]][1]
+```
+
+
+```{r}
+# my_html %>% html_nodes("table")
+remDr$getPageSource()[[1]] %>% read_html() %>% 
+  html_nodes("table") %>% .[1] -> odds_tab
+odds_tab %>% html_nodes("td") %>% 
+  html_attr("title") -> titles
+```
+
+
+```{r}
+odds_tab %>% html_nodes("td") %>% 
+  html_text() -> texts
+tibble(title=titles, text = texts) %>% 
+  filter(str_detect(title, "betslip")) %>% 
+  extract(title, into = "team", regex = "Add (.*) to betslip") %>% 
+  mutate(r = gl(nrow(.)/3, 3)) -> d
+d
+```
+
+```{r}
+d %>% separate(text, into = c("num", "den"), convert = TRUE) %>% 
+  mutate(prob = den/(num+den)) %>% 
+  group_by(r) %>% 
+  mutate(prob = prob / sum(prob)) %>% 
+  select(-num, -den) %>% 
+  ungroup() %>% 
+  nest_by(r) %>% 
+  unnest_wider(data) %>% 
+  unnest_wider(team) %>% 
+  rename("home" = "...1", "draw" = "...2", "away" = "...3") %>% 
+  unnest_wider(prob, names_repair = "unique") %>%
+  rename("p1" = "...5", "px" = "...6", "p2" = "...7") %>% 
+  rowwise() %>% 
+  mutate(lam = list(opt_lambda(c(p1, px, p2)))) %>% 
+  unnest_wider(lam, names_repair = "unique") %>% 
+  rename("lambda1" = "...8", "lambda2" = "...9") %>% 
+  View()
+```
+
+
+

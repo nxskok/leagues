@@ -1,0 +1,361 @@
+league,length,team
+england,long,Arsenal
+england,short,Arsenal
+england,long,Aston Villa
+england,short,Aston Villa
+england,long,Brentford
+england,short,Brentford
+england,short,Brighton
+england,long,Brighton & Hove Albion
+england,long,Burnley
+england,short,Burnley
+england,long,Chelsea
+england,short,Chelsea
+england,long,Crystal Palace
+england,short,Crystal Palace
+england,long,Everton
+england,short,Everton
+england,short,Leeds
+england,long,Leeds United
+england,short,Leicester
+england,long,Leicester City
+england,long,Liverpool
+england,short,Liverpool
+england,short,Man City
+england,long,Manchester City
+england,short,Man Utd
+england,long,Manchester United
+england,short,Newcastle
+england,long,Newcastle United
+england,short,Norwich
+england,long,Norwich City
+england,long,Southampton
+england,short,Southampton
+england,short,Tottenham
+england,long,Tottenham Hotspur
+england,short,Watford
+england,long,Watford
+england,short,West Ham
+england,long,West Ham United
+england,long,Wolverhampton Wanderers
+england,short,Wolves
+england_champ,short,Bournemouth
+england_champ,long,AFC Bournemouth
+england_champ,long,Barnsley
+england_champ,short,Barnsley
+england_champ,short,Birmingham
+england_champ,long,Birmingham City
+england_champ,short,Blackburn
+england_champ,long,Blackburn Rovers
+england_champ,short,Blackpool
+england_champ,long,Blackpool  
+england_champ,long,Bristol City
+england_champ,short,Bristol City
+england_champ,short,Cardiff
+england_champ,long,Cardiff City
+england_champ,short,Coventry
+england_champ,long,Coventry City
+england_champ,short,Derby
+england_champ,long,Derby County
+england_champ,short,Fulham
+england_champ,long,Fulham
+england_champ,short,Huddersfield
+england_champ,long,Huddersfield Town
+england_champ,short,Hull
+england_champ,long,Hull City
+england_champ,short,Luton
+england_champ,long,Luton Town
+england_champ,long,Middlesbrough
+england_champ,short,Middlesbrough
+england_champ,long,Millwall
+england_champ,short,Millwall
+england_champ,long,Nottingham Forest
+england_champ,short,Nottm Forest
+england_champ,short,Peterborough
+england_champ,long,Peterborough United
+england_champ,short,Preston
+england_champ,long,Preston North End
+england_champ,short,QPR
+england_champ,long,Queens Park Rangers
+england_champ,long,Reading
+england_champ,short,Reading
+england_champ,short,Rotherham
+england_champ,long,Rotherham United
+england_champ,short,Sheff Utd
+england_champ,long,Sheffield United
+england_champ,short,Sheff Wed
+england_champ,long,Sheffield Wednesday
+england_champ,short,Stoke
+england_champ,long,Stoke City
+england_champ,short,Swansea
+england_champ,long,Swansea City
+england_champ,long,West Bromwich Albion
+england_champ,short,West Brom
+england_champ,short,Wycombe
+england_champ,long,Wycombe Wanderers
+france,short,Angers
+france,long,Angers SCO
+france,long,Bordeaux
+france,short,Bordeaux
+france,long,Brest
+france,short,Brest
+france,long,Clermont
+france,short,Clermont
+france,long,Dijon
+france,short,Dijon
+france,long,Lens
+france,short,Lens
+france,long,Lille
+france,short,Lille
+france,long,Lorient
+france,short,Lorient
+france,short,Lyon
+france,long,Olympique Lyonnais
+france,short,Marseille
+france,long,Olympique Marseille
+france,long,Metz
+france,short,Metz
+france,long,Monaco
+france,short,Monaco
+france,long,Montpellier
+france,short,Montpellier
+france,long,Nantes
+france,short,Nantes
+france,long,Nice
+france,short,Nice
+france,long,Nîmes
+france,short,Nîmes
+france,long,PSG
+france,short,PSG
+france,long,Reims
+france,short,Reims
+france,long,Rennes
+france,short,Rennes
+france,long,Saint-Etienne
+france,short,Saint-Étienne
+france,long,Strasbourg
+france,short,Strasbourg
+france,long,Troyes
+france,short,Troyes
+germany,long,Arminia Bielefeld
+germany,short,Arminia Bielefeld
+germany,long,Augsburg
+germany,short,Augsburg
+germany,long,Bochum
+germany,short,VfL Bochum
+germany,short,B Dortmund
+germany,long,Borussia Dortmund
+germany,short,B Leverkusen
+germany,long,Bayer Leverkusen
+germany,short,B Mgladbach
+germany,long,Borussia M'gladbach
+germany,long,Bayern Munich
+germany,short,Bayern Munich
+germany,long,Eintracht Frankfurt
+germany,short,Frankfurt
+germany,long,Freiburg
+germany,short,Freiburg
+germany,long,Greuther Fürth
+germany,short,Fürth
+germany,short,Hertha Berlin
+germany,long,Hertha BSC
+germany,long,Hoffenheim
+germany,short,Hoffenheim
+germany,long,Köln
+germany,short,Köln
+germany,short,Mainz
+germany,long,Mainz 05
+germany,long,RB Leipzig
+germany,short,RB Leipzig
+germany,short,Schalke
+germany,long,Schalke 04
+germany,long,Stuttgart
+germany,short,Stuttgart
+germany,long,Union Berlin
+germany,short,Union Berlin
+germany,long,Werder Bremen
+germany,short,Werder Bremen
+germany,long,Wolfsburg
+germany,short,Wolfsburg
+greece,long,AEK Athens
+greece,short,AEK Athens
+greece,long,Apollon Smirnis
+greece,short,Apollon Smyrnis
+greece,long,Aris
+greece,short,Aris
+greece,long,Asteras Tripolis
+greece,short,Asteras Tripolis
+greece,long,Atromitos
+greece,short,Atromitos Athens
+greece,long,Ionikos
+greece,short,Ionikos FC
+greece,long,Lamia
+greece,short,Lamia
+greece,long,Larissa
+greece,short,Larissa
+greece,long,OFI
+greece,short,OFI
+greece,short,Olympiakos
+greece,long,Olympiakos Piraeus
+greece,long,Panaitolikos
+greece,short,Panetolikos
+greece,long,Panathinaikos
+greece,short,Panathinaikos
+greece,long,PAOK
+greece,short,PAOK Salonika
+greece,long,PAS Giannina
+greece,short,PAS Giannina
+greece,long,Volos NFC
+greece,short,Volos NFC
+italy,long,Milan
+italy,short,AC Milan
+italy,long,Atalanta
+italy,short,Atalanta
+italy,long,Benevento
+italy,short,Benevento
+italy,long,Bologna
+italy,short,Bologna
+italy,long,Cagliari
+italy,short,Cagliari
+italy,long,Crotone
+italy,short,Crotone
+italy,long,Empoli
+italy,short,Empoli
+italy,long,Fiorentina
+italy,short,Fiorentina
+italy,long,Genoa
+italy,short,Genoa
+italy,long,Hellas Verona
+italy,short,Hellas Verona
+italy,short,Inter Milan
+italy,long,Internazionale
+italy,long,Juventus
+italy,short,Juventus
+italy,long,Lazio
+italy,short,Lazio
+italy,long,Napoli
+italy,short,Napoli
+italy,long,Parma
+italy,short,Parma
+italy,long,Roma
+italy,short,Roma
+italy,long,Salernitana
+italy,short,Salernitana
+italy,long,Sampdoria
+italy,short,Sampdoria
+italy,long,Sassuolo
+italy,short,Sassuolo
+italy,short,Spezia
+italy,long,Spezia
+italy,long,Torino
+italy,short,Torino
+italy,long,Udinese
+italy,short,Udinese
+italy,long,Venezia
+italy,short,Venezia
+scotland,long,Aberdeen
+scotland,short,Aberdeen
+scotland,long,Celtic
+scotland,short,Celtic
+scotland,long,Dundee
+scotland,short,Dundee
+scotland,long,Dundee United
+scotland,short,Dundee Utd
+scotland,short,Hamilton
+scotland,long,Hamilton Academical
+scotland,long,Hearts
+scotland,short,Hearts
+scotland,long,Hibernian
+scotland,short,Hibernian
+scotland,long,Kilmarnock
+scotland,short,Kilmarnock
+scotland,long,Livingston
+scotland,short,Livingston
+scotland,short,Motherwell
+scotland,long,Motherwell
+scotland,long,Rangers
+scotland,short,Rangers
+scotland,long,Ross County
+scotland,short,Ross County
+scotland,short,St Johnstone
+scotland,long,St. Johnstone
+scotland,long,St. Mirren
+scotland,short,St Mirren
+spain,short,Ath Bilbao
+spain,long,Athletic Club
+spain,short,Atl Madrid
+spain,long,Atletico Madrid
+spain,long,Barcelona
+spain,short,Barcelona
+spain,long,Cádiz
+spain,short,Cádiz
+spain,long,Celta Vigo
+spain,short,Celta Vigo
+spain,long,Deportivo Alavés
+spain,short,Alavés
+spain,long,Eibar
+spain,short,Eibar
+spain,long,Espanyol
+spain,short,Espanyol
+spain,long,Elche
+spain,short,Elche
+spain,long,Getafe
+spain,short,Getafe
+spain,long,Granada
+spain,short,Granada
+spain,long,Huesca
+spain,short,Huesca
+spain,long,Levante
+spain,short,Levante
+spain,long,Mallorca
+spain,short,Mallorca
+spain,long,Osasuna
+spain,short,Osasuna
+spain,long,Rayo Vallecano
+spain,short,Rayo Vallecano
+spain,long,Real Betis
+spain,short,Real Betis
+spain,long,Real Madrid
+spain,short,Real Madrid
+spain,long,Real Sociedad
+spain,short,Real Sociedad
+spain,long,Real Valladolid
+spain,short,Real Valladolid
+spain,long,Sevilla
+spain,short,Sevilla
+spain,long,Valencia
+spain,short,Valencia
+spain,long,Villarreal
+spain,short,Villarreal
+sweden,long,AIK
+sweden,short,AIK
+sweden,short,BK Häcken
+sweden,long,Häcken
+sweden,long,Degerfors
+sweden,short,Degerfors IF
+sweden,long,Djurgården
+sweden,short,Djurgårdens IF
+sweden,long,Hammarby
+sweden,short,Hammarby IF
+sweden,long,Helsingborg
+sweden,short,Helsingborgs IF
+sweden,short,IF Elfsborg
+sweden,long,Elfsborg
+sweden,long,GIF Sundsvall
+sweden,short,GIF Sundsvall
+sweden,long,IFK Göteborg
+sweden,short,IFK Göteborg
+sweden,long,Kalmar
+sweden,short,Kalmar FF
+sweden,long,Malmö
+sweden,short,Malmö FF
+sweden,long,Mjällby
+sweden,short,Mjällby AIF
+sweden,long,Norrköping
+sweden,short,IFK Norrköping
+sweden,long,Sirius
+sweden,short,IK Sirius
+sweden,long,Varberg
+sweden,short,Varbergs BoIS
+sweden,long,Värnamo
+sweden,short,IFK Värnamo
