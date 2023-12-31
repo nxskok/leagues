@@ -1,0 +1,119 @@
+---
+title: "dixon-coles"
+format: html
+---
+
+looking at the revised Poisson model of Dixon and Coles, Modelling Association Football Scores and
+Inefficiencies in the Football Betting Market, section 4.
+
+## packages
+
+```{r}
+library(tidyverse)
+```
+
+## function to get probability of a particular score given poisson means and rho parameter
+
+```{r}
+ddixoncoles <- function(x, lambda) {
+  # x is a 2-vector, and lambda is a 3-vector with the 3rd entry being the dixon-coles rho
+  # implement eq 4.2
+  tau <- case_when(
+    x[1] == 0 & x[2] == 0 ~ 1 - lambda[1]*lambda[2]*lambda[3],
+    x[1] == 0 & x[2] == 1 ~ 1 + lambda[1]*lambda[3],
+    x[1] == 1 & x[2] == 0 ~ 1 + lambda[2]*lambda[3],
+    x[1] == 1 & x[2] == 1 ~ 1 - lambda[3],
+    .default = 1
+  )
+  tau * dpois(x[1], lambda[1]) * dpois(x[2], lambda[2])
+}
+```
+
+## function to make a probability table from lambda values (including rho)
+
+```{r}
+probtab <- function(lambda, upper = 6) {
+  combos <- crossing(s1 = 0:upper, s2 = 0:upper)
+  combos %>% rowwise() %>% 
+    mutate(prob = ddixoncoles(c(s1, s2), lambda)) %>% 
+    ungroup()
+}
+probtab(c(2, 1, 0)) %>% summarize(tot = sum(prob))
+```
+
+probs add up all right
+
+make a pretty table
+
+```{r}
+pretty <- function(lambda, upper = 6) {
+  probtab(lambda, upper) %>% 
+    pivot_wider(names_from = s2, values_from = prob)
+}
+pretty(c(2,1,0))
+```
+
+compare with changes in rho
+
+```{r}
+pretty(c(2,1,0.2))
+```
+
+this makes the low-scoring draws less likely and the 1-0s more likely
+
+```{r}
+pretty(c(2,1,-0.2))
+```
+
+this makes the low-scoring draws more likely and the 1-0s less likely, which agrees with the paper
+
+## prob of win, draw, and loss
+
+given lambda (and rho), find prob of 12x
+
+
+```{r}
+p12x <- function(lambda) {
+  probtab(lambda) %>% 
+  mutate(result = case_when(
+    s1 == s2 ~ "X",
+    s1 > s2  ~ "1",
+    .default = "2")
+    ) %>% 
+  group_by(result) %>% 
+  summarize(p = sum(prob))
+}
+```
+
+## find values of lambda (and rho) to match probs given (the inverse of the above)
+
+```{r}
+discrep <- function(lambda, prob) {
+  p12x(lambda) %>% 
+    mutate(p_target = prob) %>% 
+    mutate(diff = p - p_target) %>%
+    summarize(s = sum(diff^2)) %>%
+    pull(s)
+}
+discrep(c(1,1,0), c(0.6, 0.2, 0.2))
+```
+
+then optimize
+
+```{r}
+ans <- optim(c(1,1,0), discrep, prob = c(0.5, 0.2, 0.3))
+ans
+```
+
+```{r}
+ans$par
+```
+
+```{r}
+p12x(ans$par)
+```
+
+```{r}
+pretty(ans$par)
+```
+

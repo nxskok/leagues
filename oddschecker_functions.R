@@ -97,7 +97,7 @@ from_target <- function(lambda, target) {
 }
 
 opt_lambda <- function(probs, start = c(1, 1)) {
-  ans <- optim(start, from_target, target = probs, control = list(trace = 3))
+  ans <- optim(start, from_target, target = probs)
   ans$par
 }
 

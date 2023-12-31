@@ -1,0 +1,27 @@
+---
+title: "nle-stan"
+format: html
+---
+
+nonlinear equations in stan
+
+ideas stolen from [stan user's guide chapter 12](https://mc-stan.org/docs/stan-users-guide/coding-an-algebraic-system.html)
+
+```{r}
+library(tidyverse)
+library(cmdstanr)
+```
+
+```{r}
+nle1 <- cmdstan_model("nle.stan")
+nle1
+```
+
+```{r}
+nle1_fit <- nle1$sample(fixed_param = TRUE)
+```
+
+```{r}
+nle1_fit
+```
+

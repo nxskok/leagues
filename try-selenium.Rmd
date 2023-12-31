@@ -11,56 +11,66 @@ source("oddschecker_functions.R")
 # my_url <- "https://www.oddschecker.com/football/english/championship"
 # my_url <- "https://www.oddschecker.com/football/champions-league"
 # my_url <- "https://www.oddschecker.com/football/europa-league"
-my_url <- "https://www.oddschecker.com/football/uefa-europa-conference-league"
+# my_url <- "https://www.oddschecker.com/football/uefa-europa-conference-league"
 # my_url <- "https://www.oddschecker.com/football/english/premier-league"
 # my_url <- "https://www.oddschecker.com/football/scottish/premiership"
 # my_url <- "https://www.oddschecker.com/football/english/fa-cup"
+# my_url <- "https://www.oddschecker.com/football/scottish/championship"
+# my_url <- "https://www.oddschecker.com/football/germany/bundesliga"
+my_url <- "https://www.oddschecker.com/football/world-cup"
 ```
 
 
-run in terminal
-
-```{bash, eval = FALSE}
-cd Downloads
-java -jar selenium-server-standalone-3.9.1.jar 
-```
+there needs to be a selenium server open somewhere
 
 connect to it
 
 ```{r}
-remDr <- remoteDriver(
-  remoteServerAddr = "localhost",
-  port = 4444L,
-  browserName = "firefox"
-)
-remDr
+remDr <- remoteDriver(port = 4445L)
+remDr$open(silent = TRUE)
+# remDr$close()
 ```
-
-test
-
 
 ```{r}
-rD <- rsDriver(port=4448L,browser="firefox")
-remDr <- rD$client
+x_url <- "https://www.flashscore.com/"
+remDr$navigate(x_url)
+title <- remDr$getTitle()
+title
+if (length(title) == 0) stop("no title") 
 ```
+
 
 
 ```{r}
 remDr$navigate(my_url)
 ```
 
-finding stuff on there
+finding stuff on there, make this a try catch
 
 ```{r}
-webElem <- remDr$findElement(using = "css", value = ".js-close-class")
-# webElem <- remDr$findElement(using = "css", value = "html.customproperties.webp.webp-alpha.webp-animation.webp-lossless body.desktop.hoverable.beta.beta-new.gdpr-live.js.ng-scope div#promo-modal.responsive-modal.modal-dialog.offers-4.display-block.active div.responsive-modal-dialog-inner div.responsive-content-wrapper span.js-close-class.offer-close")
-webElem$clickElement()
-remDr$getCurrentUrl()
+Sys.sleep(1)
+tryCatch(
+  expr = {
+    webElem <- remDr$findElement(using = "css", value = ".js-close-class")
+    webElem$clickElement()
+    print(remDr$getCurrentUrl())
+    message("done successfully")
+  },
+  error = function(e) {
+    message("Caught an error")
+    print(e)
+  },
+  finally = {
+    message("All done")
+  }
+)
+
 ```
 
+
 ```{r}
-webElem <- remDr$findElement(using = "css", value = ".at-hda")
-webElem$getElementAttribute("class")
+# webElem <- remDr$findElement(using = "css", value = ".at-hda")
+# webElem$getElementAttribute("class")
 ```
 
 ```{r}
@@ -68,12 +78,17 @@ my_html <- remDr$getPageSource()[[1]][1]
 ```
 
 
+
+as was
+
 ```{r}
 # my_html %>% html_nodes("table")
-remDr$getPageSource()[[1]] %>% read_html() %>% 
+my_html %>% read_html() %>% 
   html_nodes("table") %>% .[1] -> odds_tab
+odds_tab %>% html_text()
 odds_tab %>% html_nodes("td") %>% 
   html_attr("title") -> titles
+titles
 ```
 
 
@@ -86,6 +101,13 @@ tibble(title=titles, text = texts) %>%
   mutate(r = gl(nrow(.)/3, 3)) -> d
 d
 ```
+
+```{r}
+my_url %>% 
+  str_match("football/(.*)") %>% 
+  pluck(2) -> url_short
+```
+
 
 ```{r}
 d %>% separate(text, into = c("num", "den"), convert = TRUE) %>% 
@@ -103,8 +125,9 @@ d %>% separate(text, into = c("num", "den"), convert = TRUE) %>%
   rowwise() %>% 
   mutate(lam = list(opt_lambda(c(p1, px, p2)))) %>% 
   unnest_wider(lam, names_repair = "unique") %>% 
-  rename("lambda1" = "...8", "lambda2" = "...9") %>% 
-  View()
+  rename("lambda1" = "...8", "lambda2" = "...9") -> dd
+View(dd, url_short)
+write_csv(dd, "oc.csv")
 ```
 
 

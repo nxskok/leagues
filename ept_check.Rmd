@@ -1,0 +1,57 @@
+down to l 52 of leagues_compare_knit
+
+```{r}
+d
+```
+
+down to line 91
+
+```{r}
+germany_post
+```
+
+down to l 120
+
+```{r}
+stats1_long <- make_long(stats1, league_names, team_lookup_table)
+stats1_long
+
+```
+
+```{r}
+# d1 <- make_all_preds(stats1_long)
+stats1_long %>% 
+    filter(league != "england_f") %>% 
+    rowwise() %>% 
+    mutate(p = list(ppd2(league, t1, t2))) -> ddd
+ddd
+```
+
+```{r}
+pluck(ddd, "p", 1) -> p
+pluck(ddd, "res", 1) -> resses
+pluck(ddd, "scores", 1) -> scores
+scores
+```
+
+```{r}
+# ept_ptf(p, resses, scores)
+crossing(pred1=0:6, pred2=0:6, p, resses, scores) %>%
+  mutate(pt = pmap_int(list(pred1, pred2, s1, s2, resses, scores),
+                       \(pred1, pred2, s1, s2, resses, scores) ptf_pts(pred1, pred2, s1, s2, resses, scores), 
+                       .progress = TRUE))
+  
+    rowwise() %>% 
+    mutate(pt = ptf_pts(pred1, pred2, s1, s2, resses, scores)) %>% # goal difference here too
+    group_by(pred1, pred2) %>% 
+    summarize(ept = sum(pt*p)) %>% 
+    arrange(desc(ept)) %>% 
+    ungroup() %>% 
+    slice(1) -> dx
+  print(dx)
+  dx %>% 
+    mutate(pred = str_c(pred1, "-", pred2)) %>% 
+    pull(pred)
+
+```
+

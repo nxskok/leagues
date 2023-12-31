@@ -1,0 +1,80 @@
+game,res,league,howmany,scores
+Sheff Wed v Southampton,X,en2,1,1-2:0-2:1-0:1-1:2-1:0-1:2-0:2-2:2-4:CorrectResultBonus(+2points)
+Blackburn v West Brom,X,en2,2,1-1:1-0:2-0:2-1:0-1:1-2:0-0:1-3:2-2:CorrectResultBonus(+2points)
+Bristol City v Preston,X,en2,3,1-0:2-1:1-1:1-2:0-1:2-0:2-2:3-1::CorrectResultBonus(+2points)
+Middlesbrough v Millwall,0,en2,4,2-0:1-0:2-1:1-1:3-0:0-0:0-1:1-3:2-2::CorrectResultBonus(+2points)
+Norwich v Hull,10,en2,5,2-0:2-1:3-1:1-0:0-0:0-1:1-1:1-2:2-2:4-1::CorrectResultBonus(+2points)
+Plymouth v Huddersfield,X,en2,6,1-2:1-1:0-1:2-1:0-0:1-0:1-3:2-0:2-2::CorrectResultBonus(+2points)
+Stoke v Rotherham,10,en2,7,2-0:1-0:2-1:0-1:0-0:1-1:1-2:3-1:3-2::CorrectResultBonus(+2points)
+Swansea v Birmingham,X,en2,8,2-1:1-0:0-1:1-1:3-4:0-0:2-0:2-2:3-0::CorrectResultBonus(+2points)
+Watford v QPR,0,en2,9,1-0:2-0:2-1:1-1:0-1:0-0:3-1:4-0::CorrectResultBonus(+2points)
+Leicester v Coventry,X,en2,10,2-0:2-1:3-1:0-1:1-1:3-0:1-3:2-2:4-2::CorrectResultBonus(+2points)
+Leeds v Cardiff,0,en2,11,2-1:1-0:1-1:2-0:3-0:0-1:2-2:4-0:6-2::CorrectResultBonus(+2points)
+Sunderland v Ipswich,0,en2,12,2-1:1-1:2-0:0-1:3-0:3-1:1-2:2-2:4-1::CorrectResultBonus(+2points)
+Burnley v Man City,21,en,1,1-3:0-2:0-3:1-4:1-2:0-1:0-4
+Arsenal v Nottm Forest,10,en,2,2-0:2-1:3-0:3-1:4-0:3-2
+Bournemouth v West Ham,X,en,3,1-1:1-2:2-1:0-0:0-1:1-0:1-3:2-2
+Brighton v Luton,10,en,4,2-0:2-1:1-0:3-1:3-0:1-1:4-0
+Everton v Fulham,X,en,5,1-2:2-1:1-1:1-0:2-2:0-1:0-2:2-0
+Sheff Utd v Crystal Palace,X,en,6,1-1:1-2:2-1:0-2:0-0:0-1:1-0:1-3:2-0
+Newcastle v Aston Villa,0,en,7,2-1:1-1:2-0:1-0:3-1:3-2:2-2:3-0
+Brentford v Tottenham,X,en,8,1-1:2-1:1-2:1-3:2-2:0-2:1-0:2-0
+Chelsea v Liverpool,X,en,9,1-2:1-1:2-1:1-0:0-2:1-3:2-2:0-0:0-1
+Man Utd v Wolves,10,en,10,2-0:3-0:2-1:1-0:3-1:1-1
+Man City v Burnley,10,enf,139,2-0:3-0:3-1:2-1:4-0:1-0
+Sheff Utd v Blackburn,1,enf,141,2-1:1-2:2-0:1-0:1-1:0-1
+Brighton v Grimsby,10,enf,138,3-0:2-0:3-1:4-0:2-1:1-0:4-1
+Man Utd v Fulham,10,enf,140,2-1:2-0:3-1:1-0:3-0
+Man City v Sheff Utd,10,enf,143,3-0:4-0:3-1:2-0:4-1:5-0
+Brighton v Man Utd,1,enf,142,1-2:2-1:1-3:0-2:2-2:1-1:3-2:0-1:1-0:2-0
+Man City v Man Utd,10,enf,144,3-1:2-1:2-0:1-2:1-0:3-0:4-2
+Brest v Lens,1,fr,1,0-1:1-2:0-2:1-0:1-1:1-3:2-1::CorrectResultBonus(+2points)
+Clermont v Monaco,21,fr,2,1-2:0-1:0-2:0-3:2-1::CorrectResultBonus(+2points)
+Marseille v Reims,10,fr,3,1-0:2-1:1-1:2-0:3-0:4-1:4-2::CorrectResultBonus(+2points)
+Montpellier v Le Havre,X,fr,4,2-1:1-0:0-0:0-1:1-2:2-0:2-2:3-0::CorrectResultBonus(+2points)
+Nantes v Toulouse,X,fr,5,2-1:1-1:0-1:1-0:1-2:2-3:3-1::CorrectResultBonus(+2points)
+Nice v Lille,X,fr,6,1-1:0-1:1-2:2-1:1-0:1-3::CorrectResultBonus(+2points)
+PSG v Lorient,10,fr,7,2-0:4-0:1-0:2-1:3-1::CorrectResultBonus(+2points)
+Rennes v Metz,10,fr,8,1-0:2-0:2-1:0-1:2-2::CorrectResultBonus(+2points)
+Strasbourg v Lyon,X,fr,9,1-1:1-0:0-1:0-2:0-3:1-2:1-3:2-3::CorrectResultBonus(+2points)
+Werder Bremen v Bayern Munich,X,de,1,1-0:1-1:1-2:1-3:1-4
+Augsburg v B Mgladbach,X,de,6,0-0:0-1:1-1:2-2:2-4
+B Dortmund v Köln,X,de,4,1-0:2-0:2-1:4-1
+B Leverkusen v RB Leipzig,X,de,3,0-1:1-1:1-2:2-3:3-1
+Frankfurt v Darmstadt,X,de,5,1-0:2-1
+Hoffenheim v Freiburg,X,de,7,2-1:0-1:1-0:2-3
+Stuttgart v VfL Bochum,X,de,8,1-0:0-0:0-1:2-1
+Union Berlin v Mainz,X,de,2,0-1:1-0:1-1:2-0:2-1
+Wolfsburg v Heidenheim,X,de,9,1-0:1-1:3-1
+Panetolikos v OFI,2,gr,239,1-1:0-1:0-2:1-2:1-0:2-2:0-0:2-1
+Asteras Tripolis v Atromitos Athens,X,gr,235,1-1:0-0:2-0:2-1:0-1:2-2:1-0:1-2
+Ionikos FC v Lamia,0,gr,236,2-1:1-1:1-0:2-0:0-1:1-2:0-0
+Levadiakos v PAS Giannina,X,gr,237,1-1:0-1:2-1:1-2:1-0:2-0:0-0:0-2
+AEK Athens v Volos NFC,10,gr,234,3-0:4-0:2-0:5-0:1-1:2-1:1-0:3-1:4-1
+Panathinaikos v Aris,10,gr,238,2-0:2-1:1-0:1-1:2-2:3-1:0-0:1-2:3-0
+PAOK Salonika v Olympiakos,X,gr,240,1-1:1-2:2-1:1-0:0-0:0-1:2-0:2-2:3-1
+Spezia v Hellas Verona,X,it,381,1-2:1-1:2-1:0-1:1-0
+Celtic v Ross County,X,sc,1,4-0:1-0:1-1:3-0:5-1
+Dundee v Motherwell,X,sc,2,1-1:0-1:1-0:1-3
+Livingston v Aberdeen,X,sc,3,1-2:0-1:0-2:1-0:1-1
+St Johnstone v Hearts,X,sc,4,1-2:1-1:0-1
+Kilmarnock v Rangers,X,sc,5,0-1:0-2:1-0:1-1:1-3:1-4
+Hibernian v St Mirren,X,sc,6,0-1:1-0:1-1:2-2:3-0:3-1
+Almería v Rayo Vallecano,X,es,1,1-1:1-2:0-1:1-0:2-1:2-0:2-2::CorrectResultBonus(+2points)
+Sevilla v Valencia,0,es,9,2-1:1-0:1-1:0-1:1-2:2-0:3-0:3-1:3-2::CorrectResultBonus(+2points)
+Celta Vigo v Osasuna,X,es,5,2-1:1-0:1-2:0-1:1-1:0-0:2-2:3-1::CorrectResultBonus(+2points)
+Las Palmas v Mallorca,X,es,7,1-1:1-0:1-3:0-1:0-0:0-2:1-2:2-1:2-3::CorrectResultBonus(+2points)
+Ath Bilbao v Real Madrid,21,es,2,1-3:0-1:0-2:1-1:1-2:0-3:0-4::CorrectResultBonus(+2points)
+Real Sociedad v Girona,10,es,8,2-0:2-1:1-0:0-1:3-0:1-1:5-2::CorrectResultBonus(+2points)
+Villarreal v Real Betis,0,es,10,2-1:1-0:0-1:2-0:2-2:0-0:1-1::CorrectResultBonus(+2points)
+Getafe v Barcelona,21,es,6,0-2:1-2:0-1:1-3:0-0:0-4:1-4:2-3:2-4::CorrectResultBonus(+2points)
+Cádiz v Alavés,0,es,4,1-1:2-1:1-0:2-0:0-1:1-2:2-2:3-1::CorrectResultBonus(+2points)
+Atl Madrid v Granada,10,es,3,2-0:1-0:3-0:3-1:2-1::CorrectResultBonus(+2points)
+AIK v BK Häcken,X,se,105,1-2:1-1:0-0:2-1:1-0:2-2:0-1:0-2:1-3:2-0
+IFK Värnamo v Djurgårdens IF,2,se,106,0-1:1-1:0-2:1-2:1-3:0-0:2-1:2-3
+IF Brommapojkarna v Degerfors IF,0,se,107,2-1:1-0:2-0:1-1:1-2:0-0:2-2:0-1:3-0:
+IK Sirius v Hammarby IF,X,se,108,1-1:1-2:1-0:2-2:2-1:0-1:0-2:2-0:1-3:3-0
+Malmö FF v Mjällby AIF,10,se,109,2-0:3-0:3-1:1-0:0-0:2-2:1-2
+Kalmar FF v IF Elfsborg,X,se,110,1-1:1-2:0-1:2-1:0-0:1-0:1-3:2-2
+IFK Göteborg v Varbergs BoIS,0,se,111,2-0:1-0:1-1:0-0:2-1:0-1:2-2:3-1
+IFK Norrköping v Halmstads BK,X,se,112,2-1:1-0:1-1:0-1:1-2:2-0:2-2:3-1

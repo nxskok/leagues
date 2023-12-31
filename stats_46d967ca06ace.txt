@@ -1,0 +1,9 @@
+game,res,league,howmany,scores
+IFK Göteborg v Mjällby AIF,10,se,81,2-0:2-1:1-0:1-1:0-1:1-2:2-2:3-1
+IFK Norrköping v IF Brommapojkarna,10,se,82,2-0:2-1:1-1:0-1:3-1:1-0:1-2
+AIK v Kalmar FF,1,se,83,2-1:1-0:0-1:1-2:1-1:0-2:1-3:2-2
+Halmstads BK v Hammarby IF,X,se,84,1-1:1-2:0-1:2-1:2-2:1-0:2-0
+IF Elfsborg v Djurgårdens IF,X,se,85,1-2:1-1:2-1:0-2:0-0:0-1:1-0:2-0:3-1:3-3
+IK Sirius v IFK Värnamo,0,se,86,1-0:1-1:2-1:2-0:0-1:1-2:3-1:0-2:2-2
+Varbergs BoIS v BK Häcken,21,se,87,0-2:1-2:1-1:1-3:1-0:0-1
+Malmö FF v Degerfors IF,10,se,88,2-0:3-0:3-1:2-1:0-1:0-0:1-0

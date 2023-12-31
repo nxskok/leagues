@@ -1,0 +1,282 @@
+## ----leagues-compare-knit-1-----------------------------------------------------------------------------------------
+library(tidyverse)
+library(lubridate)
+library(rvest)
+library(gt)
+library(conflicted)
+conflict_prefer("filter", "dplyr")
+source("20180726_functions.R")
+source("stats_functions.R")
+
+
+## ----leagues-compare-knit-2-----------------------------------------------------------------------------------------
+# tmpname <- str_c(tempfile("stats_", "."), ".txt")
+# cmd <- str_c("./stats.sh | tee ", tmpname)
+# cmd
+# system(cmd)
+
+
+## ----leagues-compare-knit-3-----------------------------------------------------------------------------------------
+the_url <- "https://www.predictthefootball.com/?lang=en_us"
+sess <- session(the_url)
+form <- html_form(sess)
+# form
+filled_form <- html_form_set(form[[1]],
+                          "LoginForm[email]" = Sys.getenv("PTF_USER"),
+                          "LoginForm[password]" = Sys.getenv("PTF_PASS"),
+                          "LoginForm[rememberMe]" = 1
+                          )
+
+session_submit(sess, filled_form)
+
+
+## ----leagues-compare-knit-4-----------------------------------------------------------------------------------------
+tmpname <- str_c(tempfile("stats_", "."), ".txt")
+tmpname
+leagues <- read_csv("short_url.csv")
+# leagues %>% mutate(form = map(url, ~get_form(., sess)))
+# there is a problem with sweden
+# leagues %>% filter(short != "se") -> leagues
+# put above back when sweden back
+# grab only sweden
+# leagues %>% filter(short == "se") -> leagues
+leagues %>% 
+  rowwise() %>% 
+  mutate(form = list(get_form(url, sess))) -> d
+
+d %>% unnest(form) %>% 
+  mutate(fixture = str_c(name_1, " v ", name_2)) %>% 
+  select(game = fixture, 
+         res = results, 
+         league = short,
+         howmany = game_number,
+         scores
+         ) %>% 
+  write_csv(tmpname)
+
+
+
+## ----leagues-compare-knit-5-----------------------------------------------------------------------------------------
+tibble(files = list.files(pattern = "*.txt")) %>% 
+  filter(files != "thing.txt") %>% 
+  rowwise() %>% mutate(info = file.mtime(files)) %>% 
+  filter(files != "stats.txt") %>% 
+  arrange(desc(info)) -> filenames
+
+
+## ----leagues-compare-knit-6-----------------------------------------------------------------------------------------
+stats1 <- read_csv(filenames$files[1])
+stats0 <- read_csv(filenames$files[2])
+
+
+## ----leagues-compare-knit-7-----------------------------------------------------------------------------------------
+stats1 %>% anti_join(stats0, by="game") -> new_games
+
+
+## ----leagues-compare-knit-8-----------------------------------------------------------------------------------------
+england_post=read_ratings("england", 2023)
+england_champ_post=read_ratings("england_champ", 2023)
+france_post=read_ratings("france", 2023)
+germany_post=read_ratings("germany", 2023)
+greece_post=read_ratings("greece", 2023)
+italy_post=read_ratings("italy", 2023)
+scotland_post=read_ratings("scotland", 2023)
+spain_post=read_ratings("spain", 2023)
+sweden_post=read_ratings("sweden",2023)
+
+
+## ----leagues-compare-knit-9-----------------------------------------------------------------------------------------
+# france_post$teams %>% View()
+
+
+## ----leagues-compare-knit-10----------------------------------------------------------------------------------------
+league_names <- tribble(
+  ~short, ~long,
+"de", "germany",
+"en", "england",
+"en2", "england_champ",
+"es", "spain",
+"fr", "france",
+"gr", "greece",
+"it", "italy",
+"sc", "scotland",
+"se", "sweden"
+)
+league_names
+
+
+## ----leagues-compare-knit-11----------------------------------------------------------------------------------------
+teams <- read_csv("teams.csv")
+nr <- nrow(teams)
+teams %>% mutate(row = gl(nr/2, 2, nr)) %>% 
+  pivot_wider(names_from = length, values_from = team) %>% 
+  select(-row) -> team_lookup_table
+team_lookup_table
+# I *think* short is ptf, long is soccerway (prior), but need to check
+
+## ----leagues-compare-knit-12----------------------------------------------------------------------------------------
+make_long <- function(stats_tab, league_names, team_lookup_table) {
+  stats_tab %>% separate(game, into = c("t1", "t2"), sep = " v ") %>% 
+  left_join(league_names, by=c("league" = "short")) %>% 
+  left_join(team_lookup_table, by=c("t1" = "short")) %>% 
+  left_join(team_lookup_table, by=c("t2" = "short")) %>%
+  filter(long.x == league.y) %>% 
+  select(league, t1 = long.y, t2 = long, res, howmany, scores)
+}
+
+
+## ----leagues-compare-knit-13----------------------------------------------------------------------------------------
+new_long <- make_long(new_games, league_names, team_lookup_table)
+stats0_long <- make_long(stats0, league_names, team_lookup_table)
+stats1_long <- make_long(stats1, league_names, team_lookup_table)
+stats1_long
+
+
+## ----leagues-compare-knit-14----------------------------------------------------------------------------------------
+ppd2 <- function(league_name, t1_name, t2_name) {
+  # print(glue::glue("in ppd2 with league {league_name}, teams {t1_name} and {t2_name}"))
+  ratings <- get(str_c(league_name, "_post"))
+  teams <- ratings$teams
+  tibble(team = c(t1_name, t2_name)) %>% left_join(teams, by="team") -> ids
+  draws <- rstan::extract(ratings$post)
+  t1 <- ids$id[1]
+  t2 <- ids$id[2]
+  tibble(nu1 = draws$o[,t1] - draws$d[,t2] + draws$h,
+         nu2 = draws$o[,t2] - draws$d[,t1]) %>% 
+    mutate(l1 = exp(nu1), l2 = exp(nu2)) -> d
+  nr <- nrow(d)
+  d %>% mutate(s1 = rpois(nr, l1), s2 = rpois(nr, l2)) %>% 
+    count(s1, s2) %>% 
+    mutate(p = n/sum(n)) %>% 
+    select(-n) %>% arrange(desc(p))
+}
+
+
+## ----leagues-compare-knit-15----------------------------------------------------------------------------------------
+res <- function(s1, s2) {
+  case_when(
+    s1<s2  ~ "0",
+    s1==s2 ~ "1",
+    s1>s2  ~ "2" 
+    )
+}
+
+ptf_pts <- function(p1, p2, o1, o2, resses, scores) {
+  pr <- res(p1, p2)
+  or <- res(o1, o2)
+  r_correct <- pr == or
+  s_correct <- (p1 == o1) & (p2 == o2)
+  r_bonus <- str_detect(resses, or) & r_correct
+  # return(list(pr, or, r_correct, s_correct, r_bonus))
+  s_bonus <- !str_detect(scores, str_c(o1, "-", o2)) & s_correct
+  r_correct + 2*s_correct + 2*r_bonus + 2*s_bonus
+}
+
+ptf_gd <- function(s1, s2) {
+  case_when(
+    s1 != s2 ~ -abs(s1-s2),
+    s1 == 0  ~ 1,
+    TRUE     ~ 2*s1
+  )
+}
+
+cp_pts <- function(p1, p2, o1, o2) {
+  pr <- res(p1, p2)
+  or <- res(o1, o2)
+  pd <- p1-p2
+  od <- o1-o2
+  diff1 <- abs(p1-o1) + abs(p2-o2) + abs(pd-od)
+  diff2 <- abs(p1-o1) + abs(p2-o2)
+  case_when(
+    pr == or ~ max(20-diff1, 8),
+    TRUE     ~ max(8-diff2, 0) 
+  )
+}
+
+
+## ----leagues-compare-knit-16----------------------------------------------------------------------------------------
+ept_ptf <- function(p, resses, scores, t1, t2) {
+  crossing(pred1=0:6, pred2=0:6, p) %>% 
+    rowwise() %>% 
+    mutate(pt = ptf_pts(pred1, pred2, s1, s2, resses, scores)) %>% # goal difference here too
+    group_by(pred1, pred2) %>% 
+    summarize(ept = sum(pt*p), .groups = "drop") %>% 
+    arrange(desc(ept)) %>% 
+    slice(1) -> dx
+  # print(dx)
+  # fstr <- sprintf("%-25s - %-25s : %1d - %1d : %5.3f\n", t1, t2, dx$pred1, dx$pred2, dx$ept)
+  # cat(fstr)
+  # print(glue::glue("{t1} - {t2}: {dx$pred1} - {dx$pred2}: {dx$ept}"))
+  dx %>% 
+    mutate(pred = str_c(pred1, "-", pred2, " (", ept, ")")) %>% 
+    pull(pred)
+}
+
+ept_cp <- function(p) {
+  crossing(pred1=0:6, pred2=0:6, p) %>% 
+    rowwise() %>% 
+    mutate(pt = cp_pts(pred1, pred2, s1, s2)) %>% # goal difference here too
+    group_by(pred1, pred2) %>% 
+    summarize(ept = sum(pt*p), .groups = "drop") %>% 
+    arrange(desc(ept)) %>% 
+    slice(1) %>%
+    mutate(pred = str_c(pred1, "-", pred2)) %>% 
+    pull(pred)
+}
+
+
+
+## ----leagues-compare-knit-17----------------------------------------------------------------------------------------
+make_all_preds <- function(long) {
+  long %>% 
+    filter(league != "england_f") %>% 
+    rowwise() %>% 
+    mutate(p = list(ppd2(league, t1, t2))) %>% 
+    mutate(pred = ept_ptf(p, res, scores, t1, t2)) %>% 
+    select(league, t1, t2, pred)
+}
+
+make_all_preds_cp <- function(long) {
+  long %>% filter(league == "italy") %>% 
+    rowwise() %>% 
+    mutate(p = list(ppd2(league, t1, t2))) %>% 
+    mutate(pred = ept_cp(p)) %>% 
+    select(league, t1, t2, pred)
+}
+
+
+## ----leagues-compare-knit-18----------------------------------------------------------------------------------------
+Sys.time()
+d0 <- read_rds("last_all.rds")
+# d0 <- make_all_preds(stats0_long) 
+d1 <- make_all_preds(stats1_long)
+write_rds(d1, "last_all.rds")
+# d0 %>% left_join(d1, by=c("league", "t1", "t2")) %>% 
+  # filter(pred.x != pred.y) %>% 
+  # mutate(is_same = ifelse(pred.x == pred.y, "same", "** different **")) %>% 
+  # filter(league != "england_f") %>% 
+  # View("changes")
+d1 %>% 
+  filter(league != "england_f") -> d18
+print(knitr::kable(d18))
+# >% gt() # the changes
+# View(d1)
+
+
+## ----leagues-compare-knit-19----------------------------------------------------------------------------------------
+#Sys.time()
+#make_all_preds(new_long) %>% 
+#  filter(league != "england_f") # new games
+  # View("new games")
+
+
+## ----leagues-compare-knit-20, error=TRUE----------------------------------------------------------------------------
+Sys.time()
+make_all_preds_cp(new_long) %>% 
+  arrange(t1) -> d20
+print(knitr::kable(d20))
+
+
+## ----leagues-compare-knit-21----------------------------------------------------------------------------------------
+# nothing here
+

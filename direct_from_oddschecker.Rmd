@@ -53,7 +53,7 @@ make_prob_df does work.
 ```{r}
 my_url <- "https://www.oddschecker.com/football/english/fa-cup"
 my_url <- "https://www.oddschecker.com/football/champions-league"
-my_url <- "https://www.oddschecker.com/football/europa-league"
+# my_url <- "https://www.oddschecker.com/football/europa-league"
 make_prob_df(my_url)
 ```
 

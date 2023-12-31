@@ -3,18 +3,20 @@ england,long,Arsenal
 england,short,Arsenal
 england,long,Aston Villa
 england,short,Aston Villa
+england,short,Bournemouth
+england,long,AFC Bournemouth
 england,long,Brentford
 england,short,Brentford
 england,short,Brighton
 england,long,Brighton & Hove Albion
-england,long,Burnley
-england,short,Burnley
 england,long,Chelsea
 england,short,Chelsea
 england,long,Crystal Palace
 england,short,Crystal Palace
 england,long,Everton
 england,short,Everton
+england,short,Fulham
+england,long,Fulham
 england,short,Leeds
 england,long,Leeds United
 england,short,Leicester
@@ -27,22 +29,16 @@ england,short,Man Utd
 england,long,Manchester United
 england,short,Newcastle
 england,long,Newcastle United
-england,short,Norwich
-england,long,Norwich City
+england,long,Nottingham Forest
+england,short,Nottm Forest
 england,long,Southampton
 england,short,Southampton
 england,short,Tottenham
 england,long,Tottenham Hotspur
-england,short,Watford
-england,long,Watford
 england,short,West Ham
 england,long,West Ham United
 england,long,Wolverhampton Wanderers
 england,short,Wolves
-england_champ,short,Bournemouth
-england_champ,long,AFC Bournemouth
-england_champ,long,Barnsley
-england_champ,short,Barnsley
 england_champ,short,Birmingham
 england_champ,long,Birmingham City
 england_champ,short,Blackburn
@@ -51,14 +47,12 @@ england_champ,short,Blackpool
 england_champ,long,Blackpool  
 england_champ,long,Bristol City
 england_champ,short,Bristol City
+england_champ,long,Burnley
+england_champ,short,Burnley
 england_champ,short,Cardiff
 england_champ,long,Cardiff City
 england_champ,short,Coventry
 england_champ,long,Coventry City
-england_champ,short,Derby
-england_champ,long,Derby County
-england_champ,short,Fulham
-england_champ,long,Fulham
 england_champ,short,Huddersfield
 england_champ,long,Huddersfield Town
 england_champ,short,Hull
@@ -69,10 +63,8 @@ england_champ,long,Middlesbrough
 england_champ,short,Middlesbrough
 england_champ,long,Millwall
 england_champ,short,Millwall
-england_champ,long,Nottingham Forest
-england_champ,short,Nottm Forest
-england_champ,short,Peterborough
-england_champ,long,Peterborough United
+england_champ,short,Norwich
+england_champ,long,Norwich City
 england_champ,short,Preston
 england_champ,long,Preston North End
 england_champ,short,QPR
@@ -87,16 +79,24 @@ england_champ,short,Sheff Wed
 england_champ,long,Sheffield Wednesday
 england_champ,short,Stoke
 england_champ,long,Stoke City
+england_champ,long,Sunderland
+england_champ,short,Sunderland
 england_champ,short,Swansea
 england_champ,long,Swansea City
+england_champ,short,Watford
+england_champ,long,Watford
 england_champ,long,West Bromwich Albion
 england_champ,short,West Brom
+england_champ,long,Wigan Athletic
+england_champ,short,Wigan
 england_champ,short,Wycombe
 england_champ,long,Wycombe Wanderers
+france,short,Ajaccio
+france,long,Ajaccio
+france,short,Auxerre
+france,long,Auxerre
 france,short,Angers
-france,long,Angers SCO
-france,long,Bordeaux
-france,short,Bordeaux
+france,long,Angers
 france,long,Brest
 france,short,Brest
 france,long,Clermont
@@ -110,11 +110,9 @@ france,short,Lille
 france,long,Lorient
 france,short,Lorient
 france,short,Lyon
-france,long,Olympique Lyonnais
+france,long,Lyon
 france,short,Marseille
-france,long,Olympique Marseille
-france,long,Metz
-france,short,Metz
+france,long,Marseille
 france,long,Monaco
 france,short,Monaco
 france,long,Montpellier
@@ -131,10 +129,10 @@ france,long,Reims
 france,short,Reims
 france,long,Rennes
 france,short,Rennes
-france,long,Saint-Etienne
-france,short,Saint-Étienne
 france,long,Strasbourg
 france,short,Strasbourg
+france,short,Toulouse
+france,long,Toulouse
 france,long,Troyes
 france,short,Troyes
 germany,long,Arminia Bielefeld
@@ -158,13 +156,13 @@ germany,short,Freiburg
 germany,long,Greuther Fürth
 germany,short,Fürth
 germany,short,Hertha Berlin
-germany,long,Hertha BSC
+germany,long,Hertha Berlin
 germany,long,Hoffenheim
 germany,short,Hoffenheim
-germany,long,Köln
+germany,long,FC Cologne
 germany,short,Köln
 germany,short,Mainz
-germany,long,Mainz 05
+germany,long,Mainz
 germany,long,RB Leipzig
 germany,short,RB Leipzig
 germany,short,Schalke
@@ -193,10 +191,12 @@ greece,long,Lamia
 greece,short,Lamia
 greece,long,Larissa
 greece,short,Larissa
+greece,long,Levadiakos
+greece,short,Levadiakos
 greece,long,OFI
 greece,short,OFI
 greece,short,Olympiakos
-greece,long,Olympiakos Piraeus
+greece,long,Olympiakos
 greece,long,Panaitolikos
 greece,short,Panetolikos
 greece,long,Panathinaikos
@@ -207,7 +207,7 @@ greece,long,PAS Giannina
 greece,short,PAS Giannina
 greece,long,Volos NFC
 greece,short,Volos NFC
-italy,long,Milan
+italy,long,AC Milan
 italy,short,AC Milan
 italy,long,Atalanta
 italy,short,Atalanta
@@ -215,24 +215,26 @@ italy,long,Benevento
 italy,short,Benevento
 italy,long,Bologna
 italy,short,Bologna
-italy,long,Cagliari
-italy,short,Cagliari
+italy,long,Cremonese
+italy,short,Cremonese
 italy,long,Crotone
 italy,short,Crotone
 italy,long,Empoli
 italy,short,Empoli
 italy,long,Fiorentina
 italy,short,Fiorentina
-italy,long,Genoa
-italy,short,Genoa
-italy,long,Hellas Verona
+italy,long,Verona
 italy,short,Hellas Verona
 italy,short,Inter Milan
-italy,long,Internazionale
+italy,long,Inter Milan
 italy,long,Juventus
 italy,short,Juventus
 italy,long,Lazio
 italy,short,Lazio
+italy,long,Lecce
+italy,short,Lecce
+italy,long,Monza
+italy,short,Monza
 italy,long,Napoli
 italy,short,Napoli
 italy,long,Parma
@@ -251,14 +253,10 @@ italy,long,Torino
 italy,short,Torino
 italy,long,Udinese
 italy,short,Udinese
-italy,long,Venezia
-italy,short,Venezia
 scotland,long,Aberdeen
 scotland,short,Aberdeen
 scotland,long,Celtic
 scotland,short,Celtic
-scotland,long,Dundee
-scotland,short,Dundee
 scotland,long,Dundee United
 scotland,short,Dundee Utd
 scotland,short,Hamilton
@@ -281,18 +279,18 @@ scotland,short,St Johnstone
 scotland,long,St. Johnstone
 scotland,long,St. Mirren
 scotland,short,St Mirren
+spain,short,Almería
+spain,long,Almeria
 spain,short,Ath Bilbao
-spain,long,Athletic Club
+spain,long,Athletic Bilbao
 spain,short,Atl Madrid
 spain,long,Atletico Madrid
 spain,long,Barcelona
 spain,short,Barcelona
-spain,long,Cádiz
+spain,long,Cadiz
 spain,short,Cádiz
 spain,long,Celta Vigo
 spain,short,Celta Vigo
-spain,long,Deportivo Alavés
-spain,short,Alavés
 spain,long,Eibar
 spain,short,Eibar
 spain,long,Espanyol
@@ -301,12 +299,10 @@ spain,long,Elche
 spain,short,Elche
 spain,long,Getafe
 spain,short,Getafe
-spain,long,Granada
-spain,short,Granada
+spain,long,Girona
+spain,short,Girona
 spain,long,Huesca
 spain,short,Huesca
-spain,long,Levante
-spain,short,Levante
 spain,long,Mallorca
 spain,short,Mallorca
 spain,long,Osasuna
@@ -329,12 +325,16 @@ spain,long,Villarreal
 spain,short,Villarreal
 sweden,long,AIK
 sweden,short,AIK
+sweden,long,Brommapojkarna
+sweden,short,IF Brommapojkarna
 sweden,short,BK Häcken
 sweden,long,Häcken
 sweden,long,Degerfors
 sweden,short,Degerfors IF
 sweden,long,Djurgården
 sweden,short,Djurgårdens IF
+sweden,long,Halmstad
+sweden,short,Halmstads BK
 sweden,long,Hammarby
 sweden,short,Hammarby IF
 sweden,long,Helsingborg

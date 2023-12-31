@@ -1,0 +1,82 @@
+copy from oddschecker (open in brave) to thing.txt
+run this
+pick league in pf.rmd
+run that 
+predictions should be in a View in the right order for ptf
+
+```{r}
+library(tidyverse)
+library(conflicted)
+source("oddschecker_functions.R")
+conflicts_prefer(dplyr::lag)
+conflicts_prefer(dplyr::filter)
+```
+
+
+
+
+```{r}
+filename <- "thing.txt"
+lines <- readLines(filename)
+lines
+```
+
+get (decimal) odds and reformat
+
+```{r}
+enframe(lines) %>%
+  filter(!str_detect(value, "^$")) %>% 
+  filter(!str_detect(value, "^[wdl]+$")) %>%
+  filter(!str_detect(value, "\\t"))%>% 
+  filter(!str_detect(value, "Stats")) %>% 
+  filter(!str_detect(value, "logo")) %>% 
+  separate(value, into = c("o1", "o2"), convert = TRUE, remove = FALSE, sep = "/") %>% 
+  mutate(numberical = as.double(o1) / as.double(o2)) %>% 
+  mutate(first = !is.na(lead(numberical, 2)) & is.na(lead(numberical, 1))) %>% 
+  mutate(first_team = ifelse(first, value, NA),
+         second_team = ifelse(lag(first, 1), value, NA),
+         group = cumsum(first)) %>% 
+  mutate(item = coalesce(first_team, second_team, as.character(numberical))) %>% 
+  drop_na(item) %>% 
+  mutate(col_name = case_when(
+    !is.na(first_team) ~ "first",
+    !is.na(second_team) ~ "second",
+    !is.na(numberical) ~ "odds",
+    TRUE ~ "error"
+  )) %>% 
+  select(group, item, col_name) %>% 
+pivot_wider(names_from = col_name, values_from = item) %>%
+  unnest_legacy(first, second) %>% 
+  unnest_wider(odds, names_sep = "_") %>% 
+  select(r = group, first, second, starts_with("odds")) -> all_odds
+all_odds
+```
+
+screenshot page, then upload to google photos, then open in Brave, then select text
+might work easier if the thing.txt is just teams and odds
+
+no, use Brave
+
+then convert these to probabilities and find lambdas, as before
+
+
+```{r}
+all_odds %>% 
+  mutate(across(starts_with("odds"), ~1/as.numeric(.))) %>% 
+  mutate(total = odds_1 + odds_2 + odds_3) %>% 
+  mutate(across(starts_with("odds"), ~./total)) %>% 
+  select(-total) -> all_odds
+all_odds
+```
+
+```{r}
+all_odds %>% 
+  rename(p1 = odds_1, px = odds_2, p2 = odds_3) %>% 
+  rowwise() %>% 
+  mutate(lambda = list(opt_lambda(c(p1, px, p2)))) %>% 
+  unnest_wider(lambda, names_sep = "")  -> dd
+dd %>% select(first, second, starts_with("l")) %>% arrange(first)
+write_csv(dd, "oc.csv")
+```
+
+use this for italian, rounding off

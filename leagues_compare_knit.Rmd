@@ -74,6 +74,7 @@ end of bit I inserted to get rid of perl
 
 ```{r leagues-compare-knit-5}
 tibble(files = list.files(pattern = "*.txt")) %>% 
+  filter(files != "thing.txt") %>% 
   rowwise() %>% mutate(info = file.mtime(files)) %>% 
   filter(files != "stats.txt") %>% 
   arrange(desc(info)) -> filenames
@@ -104,14 +105,14 @@ new_games
 ratings (copy for now)
 
 ```{r leagues-compare-knit-8}
-england_post=read_ratings("england", 2022)
-england_champ_post=read_ratings("england_champ", 2022)
-france_post=read_ratings("france", 2022)
-germany_post=read_ratings("germany", 2022)
-greece_post=read_ratings("greece", 2022)
-italy_post=read_ratings("italy", 2022)
-scotland_post=read_ratings("scotland", 2022)
-spain_post=read_ratings("spain", 2022)
+england_post=read_ratings("england", 2023)
+england_champ_post=read_ratings("england_champ", 2023)
+france_post=read_ratings("france", 2023)
+germany_post=read_ratings("germany", 2023)
+greece_post=read_ratings("greece", 2023)
+italy_post=read_ratings("italy", 2023)
+scotland_post=read_ratings("scotland", 2023)
+spain_post=read_ratings("spain", 2023)
 sweden_post=read_ratings("sweden",2022)
 ```
 

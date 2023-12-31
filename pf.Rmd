@@ -1,0 +1,146 @@
+extract info from predict the football to match with oddschecker in oc.csv
+
+```{r}
+library(tidyverse)
+library(rvest)
+library(stringdist)
+library(conflicted)
+conflicts_prefer(tidyr::extract)
+source("20180726_functions.R")
+source("stats_functions.R")
+```
+
+there is df `dd` with predicted probabilities and lambdas from oddschecker
+
+log in
+
+```{r leagues-compare-knit-3}
+the_url <- "https://www.predictthefootball.com/?lang=en_us"
+sess <- session(the_url)
+form <- html_form(sess)
+# form
+filled_form <- html_form_set(form[[1]],
+                          "LoginForm[email]" = Sys.getenv("PTF_USER"),
+                          "LoginForm[password]" = Sys.getenv("PTF_PASS"),
+                          "LoginForm[rememberMe]" = 1
+                          )
+
+session_submit(sess, filled_form)
+```
+
+
+```{r}
+leagues <- read_csv("short_url.csv")
+leagues
+# my_url <- "https://premierleague.predictthefootball.com"    # england prem
+# my_url <- "https://championship.predictthefootball.com"     # england champ
+my_url <- "https://facup.predictthefootball.com"            # england fa cup
+# my_url <- "https://championsleague.predictthefootball.com"  # euro champions league
+# my_url <- "https://europaleague.predictthefootball.com"     # euro europa league
+# my_url <- "https://ligue1.predictthefootball.com"           # france
+# my_url <- "https://bundesliga.predictthefootball.com"       # germany
+# my_url <- "https://superleague.predictthefootball.com"      # greece
+# my_url <- "https://seriea.predictthefootball.com/"          # italy
+# my_url <- "https://scottish-premier.predictthefootball.com" # scotland
+# my_url <- "https://laliga.predictthefootball.com"           # spain
+
+
+
+
+
+# others
+# my_url <- "https://worldcup.predictthefootball.com/"        # world cup
+# my_url <- "https://womensworldcup.predictthefootball.com/"  # women's world cup
+my_url
+```
+
+
+
+now find optimal pred
+
+```{r}
+opt_pred <- function(res, scores_list, lambda1, lambda2) {
+  scores <- crossing(s1 = 0:6, s2 = 0:6)
+  scores %>% 
+    mutate(p1 = dpois(s1, lambda1),
+           p2 = dpois(s2, lambda2),
+           p = p1 * p2) %>% 
+    select(s1, s2, p) -> probs
+  scores %>% 
+    mutate(result = case_when(
+            s1 < s2 ~ "0",
+            s1 == s2 ~ "1",
+            s1 > s2 ~ "2",
+            TRUE ~ "-1"),
+           result_bonus = 2*str_detect(res, result),
+           score_str = str_c(s1, "-", s2),
+           score_bonus = 2*!str_detect(scores_list, score_str)
+    ) %>% 
+    select(ss1 = s1, ss2 = s2, result, result_bonus, score_bonus) -> results
+  results %>% 
+    mutate(prob = list(probs)) %>% 
+    unnest(prob) %>% 
+    mutate(result_obs = case_when(
+            s1 < s2 ~ "0",
+            s1 == s2 ~ "1",
+            s1 > s2 ~ "2",
+            TRUE ~ "-1")) %>% 
+    mutate(pts = case_when(
+      (ss1 == s1) & (ss2 == s2) ~ 3 + result_bonus + score_bonus,
+      result == result_obs      ~ 1 + result_bonus,
+      TRUE                      ~ 0
+    )) %>% 
+    filter(pts > 0) %>% # anything where pts = 0 doesn't contribute to expected pts anyway
+    mutate(cont = pts * p) %>% 
+    group_by(ss1, ss2) %>% 
+    summarize(ept = sum(cont)) %>% 
+    ungroup() %>% 
+  slice_max(ept, n = 5) -> d
+  str_c(d$ss1, "-", d$ss2)
+}
+# opt_pred("10", "3-0:4-0:3-1:2-0:5-0:2-1:4-1", 3.47, 0.55)
+```
+
+```{r}
+get_form(my_url, sess) -> f
+# f
+f %>% 
+  mutate(fixture = str_c(name_1, " v ", name_2),
+         rp = row_number()) %>% 
+  select(rp,
+         game = fixture, 
+         res = results, 
+         howmany = game_number,
+         scores
+         ) -> ff
+# View(ff, "ff")
+# write_csv(ff, "pf.csv")
+```
+```{r}
+dd
+ff
+```
+
+```{r}
+# ff %>% slice(3:10) -> ff
+```
+
+
+```{r}
+best_match <- function(x, lookup) {
+  stringsimmatrix(x, lookup$game, method = "lcs") %>%
+    apply(1, which.max) -> perm
+  lookup$game[perm]
+}
+
+dd %>% 
+  mutate(matchup = best_match(str_c(first,second), ff)) %>% 
+  left_join(ff, by = c("matchup" = "game")) %>% 
+  select(rp, r, matchup, res, howmany, scores, lambda1, lambda2) %>% 
+  rowwise() %>% 
+  mutate(pred = list(opt_pred(res, scores, lambda1, lambda2))) %>% 
+  select(matchup, res, pred, rp, r) %>% 
+  unnest_wider(pred, names_sep = "_") %>% 
+  arrange(rp) %>% 
+  View("preds")
+```

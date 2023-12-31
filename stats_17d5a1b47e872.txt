@@ -1,0 +1,97 @@
+game,res,league,howmany,scores
+Hull v West Brom,21,en2,402,1-2:0-1:1-1:0-2:2-1:1-3:3-1
+Blackburn v Sheff Utd,2,en2,398,1-1:1-2:2-2:2-1:0-1:1-0
+Cardiff v Bristol City,X,en2,400,1-1:1-2:2-1:1-0:0-1:0-2
+Blackpool v Burnley,21,en2,399,0-2:0-3:1-2:1-3:1-1:0-1
+Huddersfield v Coventry,X,en2,401,1-1:1-2:2-1:0-1:0-2:2-0:1-0
+Luton v Swansea,0,en2,403,2-1:1-1:2-0:1-0:0-1:1-2
+Middlesbrough v Reading,10,en2,404,2-0:3-1:2-1:3-0:1-0:1-1:1-2
+Millwall v Norwich,X,en2,405,1-1:1-2:2-1:1-0:0-1:2-2
+Rotherham v QPR,X,en2,406,1-1:1-2:2-1:1-0:0-0:0-1:0-2:2-2:2-0:3-1
+Sunderland v Stoke,0,en2,407,2-1:1-1:2-0:1-0:0-1:3-1:1-2:2-2
+Watford v Preston,10,en2,408,2-0:1-0:2-1:1-1:3-0:1-2
+Wigan v Birmingham,X,en2,409,1-1:0-1:2-1:1-2:1-0:0-0:0-2
+Huddersfield v Bristol City,X,en2,327,1-1:2-1:1-2:0-1:0-2:1-0:2-2
+Reading v Sheff Utd,21,en2,334,1-2:0-2:1-1:0-1:0-3:1-0:1-3:2-1
+West Brom v Wigan,10,en2,337,2-0:3-0:2-1:3-1:1-1:0-1:1-0:3-2
+Man City v Newcastle,10,en,257,2-0:2-1:3-1:3-0:1-0:1-1
+Arsenal v Bournemouth,10,en,251,2-0:3-0:3-1:2-1:4-0:1-0
+Aston Villa v Crystal Palace,0,en,252,1-1:2-1:1-0:2-0:1-2:0-1:2-2
+Brighton v West Ham,0,en,254,2-1:1-1:2-0:1-0:1-2:0-1:2-2
+Chelsea v Leeds,0,en,255,2-1:2-0:1-0:1-1:3-1:3-0:0-0
+Wolves v Tottenham,2,en,260,1-2:1-1:0-2:0-1:1-3:2-1:1-0
+Southampton v Leicester,X,en,259,1-1:1-2:0-1:0-2:1-0:2-1:1-3:0-0:2-2
+Nottm Forest v Everton,X,en,258,1-1:1-0:2-1:1-2:0-1:2-0:0-0:2-2
+Liverpool v Man Utd,X,en,256,1-2:2-1:2-2:1-1:1-3:0-2:1-0
+Brentford v Fulham,0,en,253,2-1:1-1:2-2:1-0:2-0:1-2:0-1:0-0
+Stoke v Brighton,21,enf,134,0-2:1-2:1-3:0-1:1-1:0-3
+Leicester v Blackburn,10,enf,131,2-1:2-0:3-1:3-0
+Fulham v Leeds,10,enf,135,2-1:2-0:1-0:1-1:1-2:2-2
+Bristol City v Man City,21,enf,130,0-3:0-4:0-2:1-3:1-2:0-5
+Southampton v Grimsby,10,enf,133,2-0:2-1:3-0:1-0:3-1
+Burnley v Fleetwood,10,enf,137,2-0:3-0:2-1:3-1:1-0:4-0:4-1
+Man Utd v West Ham,10,enf,132,2-0:2-1:3-1:3-0:1-0:1-1
+Sheff Utd v Tottenham,21,enf,136,1-2:0-2:1-3:2-1:1-1:0-3
+Nice v Auxerre,10,fr,254,1-0:2-0:2-1:1-1:3-1:3-0:0-0:1-2:2-2
+Lens v Lille,X,fr,251,2-1:1-1:1-2:0-1:0-0:0-2:1-0:2-0:2-2:3-2
+PSG v Nantes,10,fr,255,3-0:2-0:2-1:3-1:1-0:4-0:0-0:1-1:1-2:2-3:3-2:4-1:4-2
+Troyes v Monaco,21,fr,260,0-2:1-2:0-1:1-1:1-3:0-0:0-3:0-4
+Montpellier v Angers,10,fr,253,2-0:1-0:3-0:2-1:1-1:3-1:0-0:0-1:0-2:1-2
+Reims v Ajaccio,0,fr,256,2-0:2-1:1-1:1-0:1-2:3-0:0-0:0-1:3-1
+Strasbourg v Brest,0,fr,258,1-0:1-1:2-0:2-1:0-0:1-2:2-2:3-1:3-2:4-2
+Toulouse v Clermont,10,fr,259,1-0:2-0:2-1:1-2:0-0:1-1:0-1:3-0:3-1
+Lyon v Lorient,10,fr,252,2-0:2-1:3-0:1-1:3-1:1-0:0-0:0-2:1-2:3-2:4-1
+Rennes v Marseille,X,fr,257,1-2:1-1:2-2:0-1:1-0:2-0:0-0:2-1:0-2:1-3:3-1
+B Dortmund v RB Leipzig,10,de,202,2-1:2-0:3-2:1-0:2-2:3-1:1-1:1-2
+Augsburg v Werder Bremen,X,de,204,1-1:1-2:1-0:0-1:2-1:0-2:2-0:2-2
+B Mgladbach v Freiburg,X,de,203,1-2:2-1:1-0:1-1:0-1:3-1:2-0
+Mainz v Hoffenheim,1,de,200,2-1:2-0:1-0:1-2:1-1:3-0:0-1:2-2:3-1:4-1
+Union Berlin v Köln,10,de,199,2-0:1-0:2-1:3-1:1-1:3-0:0-1:3-2
+VfL Bochum v Schalke,X,de,206,1-0:1-1:1-2:0-1:0-2:2-1:2-0:0-0:1-3:3-1
+Stuttgart v Bayern Munich,21,de,205,1-2:0-2:1-4:0-3:1-3:0-1:0-4:1-1
+B Leverkusen v Hertha Berlin,10,de,201,2-0:2-1:3-1:1-1:1-0:1-2:0-0:0-1:0-2:2-2:3-0
+Wolfsburg v Frankfurt,X,de,207,2-1:1-1:1-2:0-1:0-2:1-0:1-3:2-0:3-1
+Asteras Tripolis v Atromitos Athens,X,gr,169,1-1:0-1:2-0:1-2:1-0:2-1:2-3:0-0
+Olympiakos v Levadiakos,10,gr,172,3-0:2-0:4-0:1-1:1-0:3-1:5-0
+PAS Giannina v Volos NFC,X,gr,175,1-0:1-1:2-0:0-0:0-1:1-2:2-2:0-2:1-3:2-1:4-1
+Lamia v Aris,X,gr,170,0-2:1-1:0-1:1-0:1-2:0-0:1-3:2-1:3-1
+OFI v AEK Athens,2,gr,171,0-2:1-2:2-2:1-3:1-0:1-1:0-0:0-3:2-1:2-3
+PAOK Salonika v Ionikos FC,10,gr,174,2-0:1-0:3-0:3-1:2-1:0-0:0-1:1-1:2-2:4-0:4-1:5-0
+Panathinaikos v Panetolikos,10,gr,173,2-0:1-0:1-1:2-1:3-1:4-0:4-1
+Napoli v Lazio,0,it,245,2-1:2-0:1-1:3-1:1-0:3-0:3-2:0-0:1-2
+Monza v Empoli,0,it,244,1-0:1-1:2-1:2-0:0-1:1-2:2-2:0-0:0-2
+Atalanta v Udinese,10,it,241,2-1:1-0:3-1:1-1:1-2:2-0:0-0:0-1:0-2:3-0:3-3:4-1
+Fiorentina v AC Milan,2,it,242,1-1:1-2:0-1:1-3:0-0:1-0:2-2:2-1:0-2:2-0:3-2
+Spezia v Hellas Verona,X,it,249,1-1:1-0:0-1:0-0:0-2:1-2:2-1:3-1:2-0:2-2
+Sampdoria v Salernitana,X,it,247,1-0:1-1:2-0:2-1:0-1:1-2:0-0:2-2:0-2:1-3:2-4
+Inter Milan v Lecce,10,it,243,2-0:3-0:2-1:1-1:1-0:3-1:1-2:4-2
+Roma v Juventus,X,it,246,1-1:2-1:1-0:1-2:0-1:1-3:2-2:0-0:0-2:2-0:3-2
+Sassuolo v Cremonese,10,it,248,1-0:2-1:2-0:1-1:1-2:3-1:0-2:3-0:4-1
+Torino v Bologna,X,it,250,1-1:1-2:2-1:1-0:2-0:0-0:0-1:2-2:0-2:2-3:3-2
+Hearts v St Johnstone,10,sc,158,2-0:2-1:1-1:3-1:1-0:3-0
+Livingston v Hibernian,X,sc,159,1-1:1-2:2-1:1-0:0-2:2-0:0-1
+Rangers v Kilmarnock,10,sc,160,3-0:2-0:3-1:4-0:2-1:1-1
+Ross County v Motherwell,0,sc,161,1-1:2-1:1-0:1-2:2-0:0-1:2-2
+Dundee Utd v Aberdeen,X,sc,157,1-2:2-1:1-1:0-1:0-2:0-0:1-0:2-0
+St Mirren v Celtic,21,sc,162,0-3:1-3:0-2:1-2:1-4:1-1:0-4
+Celtic v Hearts,10,sc,152,2-0:2-1:3-1:3-0
+Hibernian v Rangers,2,sc,153,1-2:1-1:0-2:1-3:0-3:0-1:2-1:2-2
+Livingston v Dundee Utd,0,sc,93,1-1:1-0:2-1:2-0:1-2:0-1
+Real Sociedad v Cádiz,10,es,239,2-0:1-0:2-1:1-1:1-2:0-0:3-0:3-1
+Getafe v Girona,X,es,234,1-1:1-0:1-2:2-1:0-2:2-0:0-0:0-1:2-2
+Almería v Villarreal,X,es,231,1-2:1-1:1-0:0-2:2-1:0-1:2-0:2-3
+Mallorca v Elche,0,es,235,1-0:2-0:1-1:2-1:0-1:1-2:0-0:3-0:3-1
+Atl Madrid v Sevilla,0,es,232,2-0:2-1:1-0:1-1:3-1:0-0:1-2:3-0
+Real Valladolid v Espanyol,X,es,240,1-1:0-1:2-1:1-0:0-0:0-2:2-2:1-2:2-0
+Barcelona v Valencia,10,es,233,2-0:3-0:1-0:2-1:3-1:1-1:0-0:4-1
+Rayo Vallecano v Ath Bilbao,X,es,237,1-1:1-2:0-1:1-0:2-1:0-2:2-2:0-0:2-0
+Real Betis v Real Madrid,X,es,238,1-2:0-2:1-3:1-0:1-1:2-1:2-2:3-2:0-0:0-3
+Osasuna v Celta Vigo,X,es,236,1-0:2-0:2-1:1-1:1-2:0-1:2-2:3-1
+Malmö FF v Kalmar FF,X,se,1,2-0:2-1:3-0:1-0:1-1:1-2:2-2:2-3
+Djurgårdens IF v IF Brommapojkarna,X,se,2,2-0:2-1:1-1:0-1:1-2:1-3:3-0
+Hammarby IF v Degerfors IF,X,se,3,1-0:1-1:1-2:2-1:3-1:2-0:3-0:4-1
+IFK Norrköping v IK Sirius,X,se,4,1-1:1-0:2-1:3-0:0-1:1-2:2-0:2-2
+Halmstads BK v AIK,2,se,5,0-2:1-2:1-1:0-0:1-0:1-3
+IFK Göteborg v IFK Värnamo,X,se,6,2-0:1-1:2-1:3-1:0-1:1-2:3-0
+Mjällby AIF v Varbergs BoIS,X,se,7,2-1:1-0:1-1:0-0:0-1:1-2:2-2:3-0
+IF Elfsborg v BK Häcken,X,se,8,2-1:1-1:1-3:0-1:1-0:1-2:2-0:2-2:2-3
