@@ -25,7 +25,7 @@ get (decimal) odds and reformat
 
 ```{r}
 enframe(lines) %>%
-  filter(!str_detect(value, "^$")) %>% 
+filter(!str_detect(value, "^$")) %>% 
   filter(!str_detect(value, "^[wdl]+$")) %>%
   filter(!str_detect(value, "\\t"))%>% 
   filter(!str_detect(value, "Stats")) %>% 

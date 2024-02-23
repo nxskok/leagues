@@ -101,8 +101,8 @@ get_pars <- function(target, guess) {
 
 ```{r}
 #| warning: false
-target <- c(0.7, 0.1, 0.2)
-guess <- c(1, 1, 1)
+target <- c(0.5, 0.2, 0.3)
+guess <- c(2, 2, 2)
 pars <- get_pars(guess, target = target)
 pars
 ```
