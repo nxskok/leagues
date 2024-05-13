@@ -36,13 +36,13 @@ leagues
 # my_url <- "https://championship.predictthefootball.com"     # england champ
 # my_url <- "https://facup.predictthefootball.com"            # england fa cup
 # my_url <- "https://championsleague.predictthefootball.com"  # euro champions league
-my_url <- "https://europaleague.predictthefootball.com"     # euro europa league
+# my_url <- "https://europaleague.predictthefootball.com"     # euro europa league
 # my_url <- "https://euros.predictthefootball.com"            # european champ
 # my_url <- "https://ligue1.predictthefootball.com"           # france
 # my_url <- "https://bundesliga.predictthefootball.com"       # germany
 # my_url <- "https://superleague.predictthefootball.com"      # greece
 # my_url <- "https://seriea.predictthefootball.com/"          # italy
-# my_url <- "https://scottish-premier.predictthefootball.com" # scotland
+my_url <- "https://scottish-premier.predictthefootball.com" # scotland
 # my_url <- "https://laliga.predictthefootball.com"           # spain
 # my_url <- "https://allsvenskan.predictthefootball.com"      # sweden
 
