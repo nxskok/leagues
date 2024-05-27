@@ -1,4 +1,5 @@
 extract info from predict the football to match with oddschecker in oc.csv
+do all leagues
 
 ```{r}
 library(tidyverse)
@@ -32,30 +33,16 @@ session_submit(sess, filled_form)
 
 ```{r}
 leagues <- read_csv("short_url.csv")
-leagues
-# my_url <- "https://premierleague.predictthefootball.com"    # england prem
-# my_url <- "https://championship.predictthefootball.com"     # england champ
-# my_url <- "https://facup.predictthefootball.com"            # england fa cup
-# my_url <- "https://championsleague.predictthefootball.com"  # euro champions league
-# my_url <- "https://europaleague.predictthefootball.com"     # euro europa league
-# my_url <- "https://euros.predictthefootball.com"            # european champ
-# my_url <- "https://ligue1.predictthefootball.com"           # france
-# my_url <- "https://bundesliga.predictthefootball.com"       # germany
-# my_url <- "https://superleague.predictthefootball.com"      # greece
-my_url <- "https://seriea.predictthefootball.com/"          # italy
-# my_url <- "https://scottish-premier.predictthefootball.com" # scotland
-# my_url <- "https://laliga.predictthefootball.com"           # spain
-# my_url <- "https://allsvenskan.predictthefootball.com"      # sweden
-
-
-
-
-# others
-# my_url <- "https://worldcup.predictthefootball.com/"        # world cup
-# my_url <- "https://womensworldcup.predictthefootball.com/"  # women's world cup
-my_url
+leagues # has all the urls in it
 ```
 
+summer only: these rows
+
+```{r}
+keep <- c(4, 9, 12)
+leagues %>% slice(keep) -> leagues
+leagues
+```
 
 
 now find optimal pred
@@ -103,46 +90,56 @@ opt_pred <- function(res, scores_list, lambda1, lambda2) {
 # opt_pred("10", "3-0:4-0:3-1:2-0:5-0:2-1:4-1", 3.47, 0.55)
 ```
 
+
+
+get all the forms
+
 ```{r}
-get_form(my_url, sess) -> f
-# f
-f %>% 
-  mutate(fixture = str_c(name_1, " v ", name_2),
-         rp = row_number()) %>% 
-  select(rp,
-         game = fixture, 
-         res = results, 
-         howmany = game_number,
-         scores
-         ) -> ff
-# View(ff, "ff")
-# write_csv(ff, "pf.csv")
+leagues %>% 
+  rowwise() %>% 
+  mutate(ff = list(get_form(url, sess))) -> leagues_forms
+leagues_forms %>% 
+  unnest(ff) %>% 
+  select(-url) %>% 
+  mutate(across(starts_with("name"), \(x) str_remove(x, "\t"))) %>% 
+  mutate(fixture = str_c(name_1, " v ", name_2)) -> lfp
+lfp
 ```
+
+
+
+```{r}
+dd %>% mutate(fixture = str_c(first, " v ", second)) %>% # from oddschecker
+  select(fixture, lambda1, lambda2) -> dd
+lfp %>% # from ptf
+  select(name, fixture, results, scores) -> lfp
+```
+
 ```{r}
 dd
-ff
+lfp
 ```
-
-```{r}
-# ff %>% slice(3:10) -> ff
-```
-
 
 ```{r}
 best_match <- function(x, lookup) {
-  stringsimmatrix(x, lookup$game, method = "lcs") %>%
+  stringsimmatrix(x, lookup$fixture, method = "lcs") %>%
     apply(1, which.max) -> perm
-  lookup$game[perm]
+  lookup$fixture[perm]
 }
+```
 
+
+
+
+```{r}
 dd %>% 
-  mutate(matchup = best_match(str_c(first,second), ff)) %>% 
-  left_join(ff, by = c("matchup" = "game")) %>% 
-  select(rp, r, matchup, res, howmany, scores, lambda1, lambda2) %>% 
+  mutate(matchup = best_match(fixture, lfp)) %>% 
+  left_join(lfp, join_by("matchup" == "fixture")) %>% 
+  select(name, matchup, results, scores, lambda1, lambda2) %>% 
   rowwise() %>% 
-  mutate(pred = list(opt_pred(res, scores, lambda1, lambda2))) %>% 
-  select(matchup, res, pred, rp, r) %>% 
+  mutate(pred = list(opt_pred(results, scores, lambda1, lambda2))) %>% 
+  select(name, matchup, pred) %>% 
   unnest_wider(pred, names_sep = "_") %>% 
-  arrange(rp) %>% 
+  # arrange(rp) %>% 
   View("preds")
 ```

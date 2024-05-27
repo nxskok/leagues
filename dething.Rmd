@@ -4,6 +4,8 @@ pick league in pf.rmd
 run that 
 predictions should be in a View in the right order for ptf
 
+next: copy all odds into thing.txt (once), run dething once, get all leagues from ptf
+
 ```{r}
 library(tidyverse)
 library(conflicted)

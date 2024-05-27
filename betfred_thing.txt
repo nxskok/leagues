@@ -1,0 +1,536 @@
+Spain La Liga
+Getafe
+Real Mallorca
+08:00
+Bet Builder icon
+premier-sports-1-v2
+Home
+5/4
+Draw
+9/4
+Away
+9/4
+Celta de Vigo
+Valencia
+10:15
+Bet Builder icon
+premier-sports-1-v2
+Home
+5/6
+Draw
+11/4
+Away
+16/5
+UD Las Palmas
+Deportivo Alaves
+10:15
+Bet Builder icon
+Home
+6/4
+Draw
+12/5
+Away
+7/4
+Sevilla
+FC Barcelona
+15:00
+Bet Builder icon
+premier-sports-1-v2
+Home
+11/4
+Draw
+16/5
+Away
+5/6
+Italy Serie A
+Atalanta
+Torino
+12:00
+Bet Builder icon
+TNT Sports 1
+Home
+15/8
+Draw
+13/5
+Away
+13/10
+Napoli
+Lecce
+12:00
+Bet Builder icon
+TNT Sports 4
+Home
+1/3
+Draw
+9/2
+Away
+7/1
+Empoli
+AS Roma
+14:45
+Bet Builder icon
+TNT Sports 1
+Home
+23/20
+Draw
+13/5
+Away
+11/5
+Frosinone
+Udinese
+14:45
+Bet Builder icon
+TNT Sports 3
+Home
+7/5
+Draw
+11/5
+Away
+21/10
+Hellas Verona
+Internazionale
+14:45
+Bet Builder icon
+TNT Sports 4
+Home
+5/1
+Draw
+4/1
+Away
+4/9
+Lazio
+Sassuolo
+14:45
+Bet Builder icon
+TNT Sports 5
+Home
+1/3
+Draw
+4/1
+Away
+15/2
+Netherlands Eredivisie
+FC Utrecht
+Go Ahead Eagles
+12:00
+Bet Builder icon
+Home
+8/11
+Draw
+3/1
+Away
+100/30
+Belgium First Division A
+Club Brugge
+Cercle Brugge
+12:30
+Bet Builder icon
+Home
+8/15
+Draw
+16/5
+Away
+18/5
+Royal Antwerp
+Anderlecht
+12:30
+Bet Builder icon
+Home
+5/2
+Draw
+13/5
+Away
+5/6
+Union Saint Gilloise
+Racing Genk
+12:30
+Bet Builder icon
+Home
+4/9
+Draw
+16/5
+Away
+9/2
+Croatia Prva HNL
+HNK Rijeka
+NK Slaven Belupo
+09:00
+Bet Builder icon
+Home
+2/7
+Draw
+4/1
+Away
+13/2
+Dinamo Zagreb
+Rudeš
+11:30
+Bet Builder icon
+Home
+1/9
+Draw
+7/1
+Away
+12/1
+NK Solin
+BSK Bijelo Brdo
+11:30
+Home
+21/10
+Draw
+23/10
+Away
+21/20
+Czech Republic First League
+AC Sparta Praha
+FC Viktoria Plzen
+10:00
+Bet Builder icon
+Home
+4/9
+Draw
+16/5
+Away
+9/2
+FC Baník Ostrava
+1.FC Slovácko
+10:00
+Bet Builder icon
+Home
+8/13
+Draw
+11/4
+Away
+100/30
+SK Slavia Praha
+FK Mladá Boleslav
+10:00
+Bet Builder icon
+Home
+1/6
+Draw
+11/2
+Away
+9/1
+Denmark Superliga
+Brøndby IF
+AGF Aarhus
+11:00
+Bet Builder icon
+Home
+4/11
+Draw
+18/5
+Away
+11/2
+FC København
+FC Nordsjælland
+11:00
+Bet Builder icon
+Home
+8/11
+Draw
+100/30
+Away
+12/5
+FC Midtjylland
+Silkeborg IF
+11:00
+Bet Builder icon
+Home
+2/7
+Draw
+9/2
+Away
+6/1
+Denmark 1st Division
+FC Helsingør
+Boldklubben af 1893
+08:00
+Home
+6/4
+Draw
+5/2
+Away
+11/8
+HB Køge
+Næstved BK
+08:00
+Home
+21/10
+Draw
+5/2
+Away
+1/1
+Norway Eliteserien
+Haugesund
+Sandefjord Fotball
+11:00
+Bet Builder icon
+Home
+23/20
+Draw
+23/10
+Away
+2/1
+Odds Ballklubb
+Lillestrøm SK
+11:00
+Bet Builder icon
+Home
+7/4
+Draw
+23/10
+Away
+13/10
+Rosenborg BK
+Kristiansund BK
+11:00
+Bet Builder icon
+Home
+8/15
+Draw
+3/1
+Away
+4/1
+Sarpsborg 08
+Strømsgodset
+11:00
+Bet Builder icon
+Home
+23/20
+Draw
+13/5
+Away
+9/5
+Viking FK
+Hamarkameratene
+11:00
+Bet Builder icon
+Home
+1/2
+Draw
+16/5
+Away
+4/1
+Brann
+Molde
+13:15
+Bet Builder icon
+Home
+4/6
+Draw
+11/4
+Away
+16/5
+Spain Segunda Division
+Albacete Balompié
+Mirandés
+12:30
+Bet Builder icon
+LaLiga+
+Home
+13/10
+Draw
+9/4
+Away
+7/4
+Burgos CF
+CD Tenerife
+12:30
+Bet Builder icon
+LaLiga+
+Home
+10/11
+Draw
+21/10
+Away
+11/4
+Elche CF
+CD Eldense
+12:30
+Bet Builder icon
+LaLiga+
+Home
+1/2
+Draw
+11/4
+Away
+5/1
+FC Cartagena
+Huesca
+12:30
+Bet Builder icon
+LaLiga+
+Home
+23/10
+Draw
+15/8
+Away
+6/5
+Levante UD
+Alcorcón
+12:30
+Bet Builder icon
+LaLiga+
+Home
+8/11
+Draw
+13/5
+Away
+3/1
+Racing Santander
+Real Zaragoza
+12:30
+Bet Builder icon
+LaLiga+
+Home
+21/20
+Draw
+9/4
+Away
+11/5
+Racing de Ferrol
+Leganés
+12:30
+Bet Builder icon
+LaLiga+
+Home
+15/8
+Draw
+9/5
+Away
+6/4
+Real Oviedo
+Andorra FC
+12:30
+Bet Builder icon
+LaLiga+
+Home
+1/2
+Draw
+3/1
+Away
+9/2
+Real Sporting de Gijon
+SD Eibar
+12:30
+Bet Builder icon
+LaLiga+
+Home
+11/8
+Draw
+23/10
+Away
+13/8
+Real Valladolid
+Villarreal B
+12:30
+Bet Builder icon
+LaLiga+
+Home
+1/3
+Draw
+7/2
+Away
+7/1
+SD Amorebieta
+Espanyol
+12:30
+Bet Builder icon
+LaLiga+
+Home
+2/1
+Draw
+21/10
+Away
+5/4
+Turkey Super Lig
+Adana Demirspor
+Istanbul Basaksehir FK
+12:00
+Bet Builder icon
+Home
+23/10
+Draw
+13/5
+Away
+9/10
+Fenerbahçe SK
+Istanbulspor
+12:00
+Bet Builder icon
+Home
+1/28
+Draw
+10/1
+Away
+20/1
+Hatayspor Antakya
+Caykur Rizespor
+12:00
+Bet Builder icon
+Home
+8/15
+Draw
+16/5
+Away
+18/5
+Kasimpasa SK
+Besiktas JK
+12:00
+Bet Builder icon
+Home
+6/4
+Draw
+13/5
+Away
+11/8
+Pendikspor
+Gazişehir Gaziantep F.K.
+12:00
+Bet Builder icon
+Home
+15/8
+Draw
+12/5
+Away
+23/20
+Trabzonspor
+MKE Ankaragücü
+12:00
+Bet Builder icon
+Home
+2/1
+Draw
+5/2
+Away
+21/20
+Alanyaspor
+Antalyaspor
+14:00
+Home
+4/5
+Draw
+13/5
+Away
+11/4
+Austria Regionalliga West
+SV Wals-Grünau
+SPG Mötz/Silz
+08:00
+Home
+6/5
+Draw
+13/5
+Away
+13/8
+RW Rankweil
+SVG Reichenau
+11:00
+Home
+14/1
+Draw
+7/1
+Away
+1/11
