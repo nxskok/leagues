@@ -42,8 +42,13 @@ leagues
 # my_url <- "https://ligue1.predictthefootball.com"           # france
 # my_url <- "https://bundesliga.predictthefootball.com"       # germany
 # my_url <- "https://superleague.predictthefootball.com"      # greece
+<<<<<<< HEAD
 my_url <- "https://seriea.predictthefootball.com/"          # italy
 # my_url <- "https://scottish-premier.predictthefootball.com" # scotland
+=======
+# my_url <- "https://seriea.predictthefootball.com/"          # italy
+my_url <- "https://scottish-premier.predictthefootball.com" # scotland
+>>>>>>> 089871daa2669abf4ceaff83726f3a2abb3aa2e0
 # my_url <- "https://laliga.predictthefootball.com"           # spain
 # my_url <- "https://allsvenskan.predictthefootball.com"      # sweden
 

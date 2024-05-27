@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 17:00TV
 Atalanta
 
@@ -25,3 +26,23 @@ Real Madrid
 All Odds
 
 
+=======
+19:45TV
+	
+
+Partick
+
+Airdrie
+	
+ddwdlwwldl
+	
+
+5/4
+	
+
+11/4
+	
+
+11/5
+	All Odds
+>>>>>>> 089871daa2669abf4ceaff83726f3a2abb3aa2e0
