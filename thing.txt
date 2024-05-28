@@ -1,3 +1,32 @@
+<<<<<<< HEAD
+17:00TV
+Atalanta
+
+Fiorentina
+
+3/5
+
+7/2
+
+9/2
+
+All Odds
+
+20:00TV
+Borussia Dortmund
+
+Real Madrid
+
+17/4
+
+13/4
+
+4/6
+
+All Odds
+
+
+=======
 19:45TV
 	
 
@@ -14,5 +43,11 @@ wdldwldwdw
 5/2
 	
 
+<<<<<<< HEAD
 40/17
 	All Odds
+=======
+11/5
+	All Odds
+>>>>>>> 089871daa2669abf4ceaff83726f3a2abb3aa2e0
+>>>>>>> 10ee0affdeebfdf549c5415d6a49d8d5e1e4d3ef
